@@ -83,7 +83,7 @@ const Settings = () => {
   };
 
   return (
-    <MainLayout showFooter={false}>
+    <MainLayout showNavbar={false} showFooter={false}>
       <div className="flex min-h-screen bg-background">
         <DashboardSidebar 
           isOpen={sidebarOpen} 

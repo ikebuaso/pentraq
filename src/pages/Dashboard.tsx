@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
@@ -16,8 +15,8 @@ const Dashboard = () => {
     avatar: "/placeholder.svg"
   };
 
-  return (
-    <MainLayout showFooter={false}>
+  return ( 
+    <MainLayout showNavbar={false} showFooter={false}>
       <div className="flex min-h-screen bg-background">
         <DashboardSidebar 
           isOpen={sidebarOpen} 

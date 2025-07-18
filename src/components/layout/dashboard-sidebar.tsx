@@ -52,7 +52,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
       )}>
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-border">
+          <div className="flex items-center justify-between p-5 border-b border-border">
             <Link to="/dashboard" className="flex items-center space-x-2">
               <Shield className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-primary">Pentraq</span>
