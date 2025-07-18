@@ -61,7 +61,7 @@ export function HeroSection() {
                 </Button>
               </div>
               <p className="text-sm text-gray-400">
-                No signup required • Free vulnerability scan • Results in 30 seconds
+                No signup required • Free vulnerability scan • Results in 45 Seconds
               </p>
             </form>
 

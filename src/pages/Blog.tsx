@@ -7,7 +7,6 @@ import { MainLayout } from "@/components/layout/main-layout";
 const featuredPost = {
   title: "The Complete Guide to OWASP Top 10 2024: What's New and How to Protect Your Applications",
   excerpt: "The OWASP Top 10 has been updated for 2024 with new vulnerabilities and refined categories. Learn about the latest web application security risks and discover practical strategies to protect your applications from the most critical vulnerabilities facing developers today.",
-  date: "March 15, 2024",
   readTime: "12 min read",
   category: "Security Guide",
   author: "Sarah Chen",
@@ -18,7 +17,6 @@ const blogPosts = [
   {
     title: "Automating Security Testing in CI/CD Pipelines",
     excerpt: "Best practices for integrating automated security testing into your development workflow without slowing down deployments. Learn how to implement security gates that catch vulnerabilities early.",
-    date: "March 12, 2024",
     readTime: "8 min read",
     category: "DevSecOps",
     author: "Mike Rodriguez",
@@ -27,7 +25,7 @@ const blogPosts = [
   {
     title: "Understanding SQL Injection: Detection and Prevention",
     excerpt: "A deep dive into SQL injection attacks, how to detect them early, and proven techniques to prevent them in your applications. Includes real-world examples and code samples.",
-    date: "March 8, 2024",
+   
     readTime: "10 min read",
     category: "Vulnerability Analysis",
     author: "Alex Kim",
@@ -36,7 +34,6 @@ const blogPosts = [
   {
     title: "Building a Security-First Development Culture",
     excerpt: "Transform your development team's approach to security with practical strategies for creating a security-first mindset. Learn how to make security everyone's responsibility.",
-    date: "March 5, 2024",
     readTime: "6 min read",
     category: "Culture & Process",
     author: "Dr. Jennifer Walsh",
@@ -45,7 +42,6 @@ const blogPosts = [
   {
     title: "API Security Best Practices for 2024",
     excerpt: "Modern APIs face unique security challenges. Discover the latest best practices for securing REST and GraphQL APIs, including authentication, authorization, and rate limiting strategies.",
-    date: "March 1, 2024",
     readTime: "9 min read",
     category: "API Security",
     author: "David Thompson",
@@ -54,7 +50,6 @@ const blogPosts = [
   {
     title: "Container Security: Scanning Docker Images for Vulnerabilities",
     excerpt: "Learn how to integrate container security scanning into your deployment pipeline. Covers Docker image vulnerability assessment, base image selection, and runtime security monitoring.",
-    date: "February 28, 2024",
     readTime: "7 min read",
     category: "Container Security",
     author: "Lisa Park",
@@ -63,7 +58,6 @@ const blogPosts = [
   {
     title: "Zero Trust Architecture: Implementation Guide",
     excerpt: "Step-by-step guide to implementing Zero Trust security architecture in modern applications. Covers identity verification, device security, and network segmentation strategies.",
-    date: "February 25, 2024",
     readTime: "11 min read",
     category: "Architecture",
     author: "Robert Hayes",
@@ -148,7 +142,6 @@ export default function Blog() {
                       </span>
                       <div className="flex items-center space-x-2">
                         <Calendar className="h-3 w-3" />
-                        <span>{featuredPost.date}</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Clock className="h-3 w-3" />
@@ -229,7 +222,6 @@ export default function Blog() {
                   <div className="px-6 space-y-2">
                     <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Calendar className="h-3 w-3" />
-                      <span>{post.date}</span>
                       <span>•</span>
                       <Clock className="h-3 w-3" />
                       <span>{post.readTime}</span>

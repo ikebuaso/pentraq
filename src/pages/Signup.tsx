@@ -47,7 +47,7 @@ export default function Signup() {
         <div className="text-center">
           <Link to="/" className="inline-flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <Shield className="h-10 w-10 text-primary" />
-            <span className="text-2xl font-bold text-primary">Pentraq</span>
+            <span className="text-2xl font-bold text-primary">PenTraq</span>
           </Link>
         </div>
 

@@ -19,7 +19,7 @@ const NotFound = () => {
         <div className="space-y-4">
           <Link to="/" className="inline-flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <Shield className="h-10 w-10 text-primary" />
-            <span className="text-2xl font-bold text-primary">Pentraq</span>
+            <span className="text-2xl font-bold text-primary">PenTraq</span>
           </Link>
           
           <div className="space-y-2">

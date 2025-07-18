@@ -5,7 +5,7 @@ import { MainLayout } from "@/components/layout/main-layout";
 
 const plans = [
   {
-    name: "Free",
+    name: "Freemium",
     price: "$0",
     period: "forever",
     description: "Perfect for individual developers and small projects",

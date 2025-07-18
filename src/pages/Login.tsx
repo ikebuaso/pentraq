@@ -30,7 +30,7 @@ export default function Login() {
         <div className="text-center">
           <Link to="/" className="inline-flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <Shield className="h-10 w-10 text-primary" />
-            <span className="text-2xl font-bold text-primary">Pentraq</span>
+            <span className="text-2xl font-bold text-primary">PenTraq</span>
           </Link>
         </div>
 
@@ -41,7 +41,7 @@ export default function Login() {
               Welcome Back
             </CardTitle>
             <CardDescription className="text-muted-foreground">
-              Sign in to your Pentraq account to continue
+              Sign in to your PenTraq account to continue
             </CardDescription>
           </CardHeader>
           
