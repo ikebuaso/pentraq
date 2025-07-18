@@ -1,73 +1,103 @@
-# Welcome to your Lovable project
+# 🛡️ Pentraq – Automated Web Security Auditor (Frontend Only)
 
-## Project info
+**Pentraq** is a modern cybersecurity SaaS platform that allows users to input their website URL and receive an automated security scan (future backend integration planned).  
+This repository contains the **frontend-only implementation** built with **Next.js** and **Tailwind CSS**, optimized for performance, scalability, and clean UI/UX using a **grayscale design system**.
 
-**URL**: https://lovable.dev/projects/000b1405-bf5f-413d-a1e7-bd8b099a5ccd
+---
 
-## How can I edit this code?
+## 🚀 Live Preview
+Coming soon – hosted on [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/000b1405-bf5f-413d-a1e7-bd8b099a5ccd) and start prompting.
+- ⚡ Fast-loading, mobile-responsive layout
+- 🌗 Dark/Light mode toggle
+- 🔐 Login & Signup UI (no backend yet)
+- 🧩 Modular components for reusability
+- 🗂️ Scalable folder structure
+- 🧠 Built with accessibility and SEO in mind
+- 🎨 Clean, grayscale minimalist UI
+- 🧪 Form-ready scan input (API-ready)
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 📁 Folder Structure
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+pentaq/
+│
+├── components/ # Reusable UI components
+│ ├── ui/ # Buttons, Inputs, Cards
+│ └── layout/ # Navbar, Footer, etc.
+│
+├── pages/ # Static routes (Next.js)
+│ ├── index.tsx # Homepage
+│ ├── auth/ # Login, Signup
+│ ├── blog/ # Blog preview
+│ ├── pricing.tsx # Pricing page
+│ └── 404.tsx # Error page
+│
+├── public/ # Assets (logo, icons, etc.)
+├── styles/ # Tailwind config, globals
+├── lib/ # (Future: API helpers)
+└── README.md
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+yaml
+Copy
+Edit
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Font:** Inter, system-ui
+- **Deployment Target:** Vercel / Netlify
+- **Form Handling:** Placeholder-only (ready for future integration)
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## 📦 Getting Started
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/pentraq.git
+
+# 2. Navigate into the folder
+cd pentraq
+
+# 3. Install dependencies
+npm install
+
+# 4. Run development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+# 5. Open in browser
+http://localhost:3000
+🔮 Planned Upgrades
+🔧 Integrate backend vulnerability scanner (/api/scan)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+🔐 Connect authentication to Firebase or Supabase
 
-**Use GitHub Codespaces**
+📈 Add user dashboards for saved scans
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+📬 Newsletter / email collection
 
-## What technologies are used for this project?
+🧠 AI-assisted scan report explanations
 
-This project is built with:
+📄 License
+MIT © 2025 Pentraq Security Ltd.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🤝 Contribution
+Pull requests, ideas, and issue reports are always welcome. Let’s build a safer web together.
 
-## How can I deploy this project?
+📫 Contact
+Have questions, partnerships, or security concerns?
 
-Simply open [Lovable](https://lovable.dev/projects/000b1405-bf5f-413d-a1e7-bd8b099a5ccd) and click on Share -> Publish.
+Email: founder@pentraq.com
+Twitter: @pentraqSec
+LinkedIn: Pentraq Security
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
