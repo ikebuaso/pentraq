@@ -1,13 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { MainLayout } from "@/components/layout/main-layout";
+import { HeroSection } from "@/components/sections/hero-section";
+import { TrustedBySection } from "@/components/sections/trusted-by-section";
+import { FeaturesSection } from "@/components/sections/features-section";
+import { WhyChooseSection } from "@/components/sections/why-choose-section";
+import { PricingPreviewSection } from "@/components/sections/pricing-preview-section";
+import { BlogHighlightsSection } from "@/components/sections/blog-highlights-section";
+import { FinalCtaSection } from "@/components/sections/final-cta-section";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <MainLayout>
+      <HeroSection />
+      <TrustedBySection />
+      <FeaturesSection />
+      <WhyChooseSection />
+      <PricingPreviewSection />
+      <BlogHighlightsSection />
+      <FinalCtaSection />
+    </MainLayout>
   );
 };
 
