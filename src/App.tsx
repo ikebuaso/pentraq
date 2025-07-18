@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +11,10 @@ import Pricing from "./pages/Pricing";
 import Features from "./pages/Features";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import ScanResult from "./pages/ScanResult";
+import ScanHistory from "./pages/ScanHistory";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +33,10 @@ const App = () => (
           <Route path="/features" element={<Features />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/scan-result/:scanId" element={<ScanResult />} />
+          <Route path="/scan-history" element={<ScanHistory />} />
+          <Route path="/settings" element={<Settings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
