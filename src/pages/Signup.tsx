@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Shield, Lock, Mail, User } from "lucide-react";
@@ -7,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/lib/supabaseClient";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,23 +20,49 @@ const Signup = () => {
     agreeToTerms: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    
+
     if (!formData.agreeToTerms) {
       alert("Please agree to the terms and conditions!");
       return;
     }
-    
-    console.log("Signup form submitted:", formData);
-    
-    // Mock registration - redirect to dashboard
+
+    // Supabase signup
+    const { data, error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: { full_name: formData.fullName }
+      }
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    // Redirect or show success
     navigate("/dashboard");
+  };
+
+  // Google signup handler
+  const handleGoogleSignup = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+    if (error) {
+      alert(error.message);
+    }
+    // Supabase will redirect automatically on success
   };
 
   return (
@@ -160,6 +186,16 @@ const Signup = () => {
               Create Account
             </Button>
           </form>
+
+          {/* Google Signup Button */}
+          <Button
+            type="button"
+            className="w-full bg-white text-black border border-border hover:bg-gray-100 flex items-center justify-center gap-2"
+            onClick={handleGoogleSignup}
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
+            Sign up with Google
+          </Button>
 
           {/* Footer */}
           <div className="text-center">

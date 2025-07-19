@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { RunNewScan } from "@/components/sections/run-new-scan";
 import { RecentScans } from "@/components/sections/recent-scans";
+import { supabase } from "@/lib/supabaseClient";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
-  // Mock user data
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
+  const [user, setUser] = useState<{ name: string; email: string; avatar: string }>({
+    name: "",
+    email: "",
     avatar: "/placeholder.svg"
-  };
+  });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUser({
+          name: user.user_metadata?.full_name || user.email,
+          email: user.email,
+          avatar: user.user_metadata?.avatar_url || "/placeholder.svg"
+        });
+      }
+    };
+    fetchUser();
+  }, []);
 
   return ( 
     <MainLayout showNavbar={false} showFooter={false}>
@@ -35,6 +48,9 @@ const Dashboard = () => {
                 <h1 className="text-3xl font-bold text-foreground">
                   Welcome back, {user.name}!
                 </h1>
+                <p className="text-muted-foreground mt-2">
+                  Email: {user.email}
+                </p>
                 <p className="text-muted-foreground mt-2">
                   Monitor your website security and run new vulnerability scans.
                 </p>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Shield, Lock, Mail } from "lucide-react";
@@ -7,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/lib/supabaseClient";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,12 +16,34 @@ const Login = () => {
     password: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login form submitted:", formData);
-    
-    // Mock authentication - redirect to dashboard
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
     navigate("/dashboard");
+  };
+
+  // Google login handler
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+    if (error) {
+      alert(error.message);
+    }
+    // Supabase will redirect automatically on success
   };
 
   return (
@@ -41,7 +63,7 @@ const Login = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <div className="relative">
@@ -99,6 +121,16 @@ const Login = () => {
               Sign In
             </Button>
           </form>
+
+          {/* Google Login Button */}
+          <Button
+            type="button"
+            className="w-full bg-white text-black border border-border hover:bg-gray-100 flex items-center justify-center gap-2"
+            onClick={handleGoogleLogin}
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
+            Sign in with Google
+          </Button>
 
           {/* Footer */}
           <div className="text-center">

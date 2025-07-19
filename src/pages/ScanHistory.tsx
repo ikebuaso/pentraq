@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { History, AlertTriangle, CheckCircle, Clock, Search } from "lucide-react";
 import { MainLayout } from "@/components/layout/main-layout";
@@ -16,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { supabase } from "@/lib/supabaseClient";
 
 const mockScans = [
   { id: "scan-1", url: "https://example.com", date: "2024-01-15", status: "completed", issues: 3 },
@@ -28,11 +28,30 @@ const mockScans = [
 const ScanHistory = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
+  const [profile, setProfile] = useState({
+    name: "",
+    email: "",
     avatar: "/placeholder.svg"
+  });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setProfile({
+          name: user.user_metadata?.full_name || user.email,
+          email: user.email,
+          avatar: user.user_metadata?.avatar_url || "/placeholder.svg"
+        });
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const user = {
+    name: profile.name,
+    email: profile.email,
+    avatar: profile.avatar || "/placeholder.svg"
   };
 
   const getStatusIcon = (status: string, issues: number | null) => {

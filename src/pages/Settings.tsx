@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Save, User, Bell, Lock, Trash2 } from "lucide-react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
@@ -10,22 +9,39 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabaseClient";
 
 const Settings = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { toast } = useToast();
-  
+
+  // Fetch user from Supabase
   const [profile, setProfile] = useState({
-    name: "John Doe",
-    email: "john@example.com"
+    name: "",
+    email: "",
+    avatar: "/placeholder.svg"
   });
-  
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setProfile({
+          name: user.user_metadata?.full_name || user.email,
+          email: user.email,
+          avatar: user.user_metadata?.avatar_url || "/placeholder.svg"
+        });
+      }
+    };
+    fetchUser();
+  }, []);
+
   const [notifications, setNotifications] = useState({
     emailAlerts: true,
     scanComplete: true,
     weeklyReports: false
   });
-  
+
   const [passwords, setPasswords] = useState({
     current: "",
     new: "",
@@ -35,7 +51,7 @@ const Settings = () => {
   const user = {
     name: profile.name,
     email: profile.email,
-    avatar: "/placeholder.svg"
+    avatar: profile.avatar || "/placeholder.svg"
   };
 
   const handleSaveProfile = () => {
@@ -63,13 +79,13 @@ const Settings = () => {
       });
       return;
     }
-    
+
     console.log("Updating password");
     toast({
       title: "Password Updated",
       description: "Your password has been changed successfully.",
     });
-    
+
     setPasswords({ current: "", new: "", confirm: "" });
   };
 
@@ -89,13 +105,13 @@ const Settings = () => {
           isOpen={sidebarOpen} 
           onClose={() => setSidebarOpen(false)} 
         />
-        
+
         <div className="flex-1 flex flex-col">
           <DashboardHeader 
             user={user}
             onMenuClick={() => setSidebarOpen(true)}
           />
-          
+
           <main className="flex-1 p-6">
             <div className="max-w-4xl mx-auto space-y-8">
               <div>
