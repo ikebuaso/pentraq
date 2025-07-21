@@ -28,6 +28,12 @@ const Dashboard = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
+
   return ( 
     <MainLayout showNavbar={false} showFooter={false}>
       <div className="flex min-h-screen bg-background">
