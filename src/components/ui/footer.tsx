@@ -5,20 +5,20 @@ const footerNavigation = {
   product: [
     { name: "Features", href: "/features" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Documentation", href: "/docs" },
-    { name: "API", href: "/api" },
+    { name: "Documentation", href: "#" },
+    { name: "API", href: "#" },
   ],
   company: [
-    { name: "About", href: "/about" },
+
     { name: "Blog", href: "/blog" },
-    { name: "Careers", href: "/careers" },
+    { name: "Careers", href: "#" },
     { name: "Contact", href: "/contact" },
   ],
   legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Security", href: "/security" },
-    { name: "Status", href: "/status" },
+    { name: "Privacy Policy", href: "#" },
+    { name: "Terms of Service", href: "#" },
+    { name: "Security", href: "#" },
+    { name: "Status", href: "#" },
   ],
   social: [
     {

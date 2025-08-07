@@ -1,5 +1,6 @@
 import { Shield, Zap, BarChart3, Users, Code, FileText, Globe, Lock } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -102,13 +103,17 @@ export function FeaturesSection() {
             <span>Ready to secure your application?</span>
           </div>
           <div className="space-x-4">
+            <Link to="/free-scan">
             <button className="inline-flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-white font-medium rounded-lg transition-colors shadow-glow">
               Start Free Scan
               <Zap className="ml-2 h-4 w-4" />
             </button>
+            </Link>
+            <Link to="/pricing">
             <button className="inline-flex items-center px-6 py-3 border border-border hover:bg-muted text-foreground font-medium rounded-lg transition-colors">
               View Pricing
             </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Shield, Zap, CheckCircle } from "lucide-react";
 import heroImage from "@/assets/hero-security.jpg";
+import { Link } from "react-router-dom";
 
 export function HeroSection() {
   const [url, setUrl] = useState("");
@@ -44,13 +45,14 @@ export function HeroSection() {
                 <div className="relative flex-1">
                   <Input
                     type="url"
-                    placeholder="https://example.com"
+                    placeholder="https://yourwebsite.com"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pl-10 h-12"
                   />
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 </div>
+                <Link to="/free-scan">
                 <Button 
                   type="submit"
                   size="lg"
@@ -59,6 +61,7 @@ export function HeroSection() {
                   <Zap className="mr-2 h-4 w-4" />
                   Start Scan
                 </Button>
+                </Link>
               </div>
               <p className="text-sm text-gray-400">
                 No signup required • Free vulnerability scan • Results in 45 Seconds

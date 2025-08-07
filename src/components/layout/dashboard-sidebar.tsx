@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
@@ -8,7 +7,8 @@ import {
   LogOut, 
   Shield, 
   X,
-  Menu
+  Menu,
+  CreditCard // Optional: icon for subscription
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -85,6 +85,17 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
                 <span>{item.name}</span>
               </Link>
             ))}
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/subscription"
+                  className="flex items-center px-4 py-2 rounded hover:bg-accent transition"
+                >
+                  <CreditCard className="h-5 w-5 mr-2" />
+                  Subscription
+                </Link>
+              </li>
+            </ul>
           </nav>
 
           {/* Logout */}
