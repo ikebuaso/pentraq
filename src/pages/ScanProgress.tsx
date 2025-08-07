@@ -71,7 +71,7 @@ const ScanProgress = () => {
   useEffect(() => {
     if (progress >= 100) {
       setTimeout(() => {
-        navigate("/scanresults");
+        navigate("/scan-results");
       }, 1000); // 1 second delay for smoothness
     }
   }, [progress, navigate]);

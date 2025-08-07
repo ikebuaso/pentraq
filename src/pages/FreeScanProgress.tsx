@@ -71,7 +71,7 @@ const ScanProgress = () => {
   useEffect(() => {
     if (progress >= 100) {
       setTimeout(() => {
-        navigate("/freescanresults");
+        navigate("/freescan-results");
       }, 1000); // 1 second delay for smoothness
     }
   }, [progress, navigate]);
