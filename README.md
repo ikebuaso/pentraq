@@ -33,32 +33,6 @@ This codebase is designed to be modular, scalable, and ready for integration wit
 | **TypeScript (Optional)** | Ready to enable if needed         |
 
 ---
-
-## 🧱 Project Structure
-
-pentraq/
-│
-├── components/ # Reusable UI components (navbar, cards, inputs)
-│ ├── ui/ # Core building blocks (Button, Input, etc.)
-│ └── layout/ # Navbar, Footer, Section wrappers
-│
-├── pages/ # Static pages and routes (Next.js)
-│ ├── index.tsx # Landing Page
-│ ├── auth/ # Login and Signup UI
-│ ├── pricing.tsx # Pricing tiers
-│ ├── blog.tsx # Blog previews
-│ ├── contact.tsx # Contact form
-│ └── 404.tsx # Custom error page
-│
-├── public/ # Static assets (logos, icons, screenshots)
-├── styles/ # Tailwind config and global styles
-├── lib/ # (Future) API helpers and business logic
-└── README.md
-
-yaml
-Copy
-Edit
-
 ---
 
 ## 🚀 Features
@@ -80,7 +54,7 @@ Edit
 |---------------------------|------------|--------------------------------------------------------------|
 | 🔹 Frontend MVP            | ✅ Done     | Public UI for homepage and auth                              |
 | 🔹 Backend Integration     | ⏳ Planned  | API to process and return security scans                     |
-| 🔹 Dashboard UI            | 🔜 Next     | Logged-in user dashboard, history, and account management    |
+| 🔹 Dashboard UI            | ✅ Done      | Logged-in user dashboard, history, and account management    |
 | 🔹 Real-time Notifications | 🔜 Next     | Email or UI notifications when scans complete                |
 | 🔹 Payment Integration     | 🔜 Later    | Stripe + tiered pricing for Pro/Agency plans                 |
 | 🔹 CMS for Blog            | 🔜 Later    | Sanity or Notion-based blog backend  
