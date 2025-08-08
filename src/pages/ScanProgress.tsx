@@ -13,21 +13,24 @@ import {
   Pause, 
   Square,
   Activity,
-  Terminal
+  Terminal,
+  Play
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ScanProgress = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [logs, setLogs] = useState([
     { time: "14:30:01", level: "info", message: "Initializing security scan for example.com" },
     { time: "14:30:02", level: "info", message: "Checking SSL/TLS configuration..." },
     { time: "14:30:03", level: "success", message: "SSL certificate is valid" },
     { time: "14:30:05", level: "info", message: "Starting OWASP Top 10 vulnerability scan..." },
   ]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const scanSteps = [
     { name: "Initialization", status: "completed" },
@@ -39,37 +42,58 @@ const ScanProgress = () => {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        const newProgress = Math.min(prev + Math.random() * 5, 100);
-        // Simulate log updates
-        if (Math.random() > 0.7) {
-          const messages = [
-            "Checking for SQL injection vulnerabilities...",
-            "Analyzing authentication mechanisms...",
-            "Scanning for XSS vulnerabilities...",
-            "Testing for CSRF protection...",
-            "Checking security headers...",
-            "Validating input sanitization..."
-          ];
-          const levels = ["info", "warning", "success"];
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString();
-          setLogs(prevLogs => [...prevLogs, {
-            time: timeStr,
-            level: levels[Math.floor(Math.random() * levels.length)],
-            message: messages[Math.floor(Math.random() * messages.length)]
-          }]);
-        }
-        return newProgress;
-      });
-    }, 2000);
-    return () => clearInterval(interval);
+    if (!paused && progress < 100) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setProgress(prev => {
+          const newProgress = Math.min(prev + Math.random() * 5, 100);
+          // Simulate log updates
+          if (Math.random() > 0.7) {
+            const messages = [
+              "Checking for SQL injection vulnerabilities...",
+              "Analyzing authentication mechanisms...",
+              "Scanning for XSS vulnerabilities...",
+              "Testing for CSRF protection...",
+              "Checking security headers...",
+              "Validating input sanitization..."
+            ];
+            const levels = ["info", "warning", "success"];
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString();
+            setLogs(prevLogs => [...prevLogs, {
+              time: timeStr,
+              level: levels[Math.floor(Math.random() * levels.length)],
+              message: messages[Math.floor(Math.random() * messages.length)]
+            }]);
+          }
+          return newProgress;
+        });
+      }, 2000);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    }
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [paused, progress]);
+
+  // Clean up interval on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, []);
 
   // Navigate to ScanResults when progress reaches 100
   useEffect(() => {
     if (progress >= 100) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
       setTimeout(() => {
         navigate("/scan-results");
       }, 1000); // 1 second delay for smoothness
@@ -110,11 +134,26 @@ const ScanProgress = () => {
             <p className="text-muted-foreground">Scanning example.com for vulnerabilities</p>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline">
-              <Pause className="w-4 h-4 mr-2" />
-              Pause
+            <Button
+              variant="outline"
+              onClick={() => setPaused(p => !p)}
+              disabled={progress >= 100}
+            >
+              {paused ? <Play className="w-4 h-4 mr-2" /> : <Pause className="w-4 h-4 mr-2" />}
+              {paused ? "Resume" : "Pause"}
             </Button>
-            <Button variant="destructive">
+            <Button
+              variant="destructive"
+              onClick={() => {
+                setPaused(true);
+                setProgress(0);
+                setLogs([
+                  { time: new Date().toLocaleTimeString(), level: "info", message: "Scan stopped by user." }
+                ]);
+                if (intervalRef.current) clearInterval(intervalRef.current);
+              }}
+              disabled={progress === 0 || progress >= 100}
+            >
               <Square className="w-4 h-4 mr-2" />
               Stop
             </Button>
