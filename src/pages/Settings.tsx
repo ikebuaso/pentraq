@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,25 +28,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export const UserContext = createContext<
-  | {
-      user: { name: string; email: string };
-      setUser: React.Dispatch<
-        React.SetStateAction<{ name: string; email: string }>
-      >;
-    }
-  | undefined
->(undefined);
-
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ name: "", email: "" });
-
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
-};
+// Removed UserContext and UserProvider related to Supabase
 
 const Settings = () => {
   const [showPassword, setShowPassword] = useState(false);

@@ -1,8 +1,3 @@
-// Update the import path below to the correct location of DashboardLayout in your project.
-// For example, if it's in src/layouts/DashboardLayout.tsx, use the following:
-// Update the import path below to the correct location of DashboardLayout in your project.
-// For example, if it's in src/components/layouts/DashboardLayout.tsx, use the following:
-// import { DashboardLayout } from "@/components/layouts/DashboardLayout";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,30 +13,15 @@ import {
   Plus
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 
 const Dashboard = () => {
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (data?.user) {
-        // Prefer email, fallback to user_metadata.email if available (for GitHub)
-        setUserEmail(data.user.email || data.user.user_metadata?.email || null);
-      }
-    };
-    getUser();
-  }, []);
-
   return (
     <DashboardLayout>
       <div className="space-y-6">
         {/* Welcome Section */}
         <div>
           <h1 className="text-3xl font-bold text-foreground">
-            Welcome back{userEmail ? `, ${userEmail}` : ","}!
+            Welcome back!
           </h1>
           <p className="text-muted-foreground">Here's what's happening with your security scans today.</p>
         </div>
