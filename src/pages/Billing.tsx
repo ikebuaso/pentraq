@@ -1,3 +1,12 @@
+import * as React from "react";
+import { SignedIn, ClerkLoaded } from "@clerk/clerk-react";
+import {
+  CheckoutProvider,
+  useCheckout,
+  PaymentElementProvider,
+  PaymentElement,
+  usePaymentElement,
+} from "@clerk/clerk-react/experimental";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +30,108 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const Billing = () => {
+export function Billing() {
+  return (
+    <CheckoutProvider for="user" planId="cplan_xxx" planPeriod="month">
+      <ClerkLoaded>
+        <SignedIn>
+          <CustomCheckout />
+        </SignedIn>
+      </ClerkLoaded>
+    </CheckoutProvider>
+  );
+}
+
+function CustomCheckout() {
+  const { checkout } = useCheckout();
+  const { status } = checkout;
+
+  if (status === "needs_initialization") {
+    return <CheckoutInitialization />;
+  }
+
+  return (
+    <div className="checkout-container">
+      <CheckoutSummary />
+      <PaymentElementProvider checkout={checkout}>
+        <PaymentSection />
+      </PaymentElementProvider>
+    </div>
+  );
+}
+
+function CheckoutInitialization() {
+  const { checkout } = useCheckout();
+  const { start, status, fetchStatus } = checkout;
+
+  if (status !== "needs_initialization") {
+    return null;
+  }
+
+  return (
+    <button onClick={start} disabled={fetchStatus === "fetching"} className="start-checkout-button">
+      {fetchStatus === "fetching" ? "Initializing..." : "Start Checkout"}
+    </button>
+  );
+}
+
+function PaymentSection() {
+  const { checkout } = useCheckout();
+  const { isConfirming, confirm, finalize, error } = checkout;
+
+  const { isFormReady, submit } = usePaymentElement();
+  const [isProcessing, setIsProcessing] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isFormReady || isProcessing) return;
+    setIsProcessing(true);
+
+    try {
+      const { data, error } = await submit();
+      if (error) {
+        return;
+      }
+      await confirm(data);
+      finalize({ redirectUrl: "/dashboard" });
+    } catch (error) {
+      console.error("Payment failed:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <PaymentElement fallback={<div>Loading payment element...</div>} />
+      {error && <div>{error.message}</div>}
+      <button type="submit" disabled={!isFormReady || isProcessing || isConfirming}>
+        {isProcessing || isConfirming ? "Processing..." : "Complete Purchase"}
+      </button>
+    </form>
+  );
+}
+
+function CheckoutSummary() {
+  const { checkout } = useCheckout();
+  const { plan, totals } = checkout;
+
+  if (!plan) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h2>Order Summary</h2>
+      <span>{plan.name}</span>
+      <span>
+        {totals.totalDueNow.currencySymbol} {totals.totalDueNow.amountFormatted}
+      </span>
+    </div>
+  );
+}
+
+const BillingPage = () => {
   const billingHistory = [
     {
       id: "inv_001",
@@ -304,4 +414,4 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+export default BillingPage;

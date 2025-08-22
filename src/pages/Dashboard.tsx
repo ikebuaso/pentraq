@@ -13,6 +13,7 @@ import {
   Plus
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { UserButton } from "@clerk/clerk-react";
 
 const Dashboard = () => {
   return (

@@ -53,7 +53,7 @@ const NotFound = () => {
       </div>
       
       {/* Glitch CSS */}
-      <style jsx>{`
+      <style>{`
         .glitch {
           position: relative;
           animation: glitch-skew 1s infinite linear alternate-reverse;

@@ -3,9 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Shield, Github, Chrome } from "lucide-react";
+import { Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { SignIn, SignUp } from "@clerk/clerk-react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,104 +27,29 @@ const Auth = () => {
           </p>
         </div>
 
-        <Card className="shadow-card">
-          <CardHeader>
-            <CardTitle>{isLogin ? "Sign In" : "Sign Up"}</CardTitle>
-            <CardDescription>
-              {isLogin ? "Enter your credentials to access your dashboard" : "Create an account to get started"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                variant="outline"
-                className="w-full"
-                type="button"
-              >
-                <Github className="w-4 h-4 mr-2" />
-                GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full"
-                type="button"
-              >
-                <Chrome className="w-4 h-4 mr-2" />
-                Google
-              </Button>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with email</span>
-              </div>
-            </div>
-
-            <form className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="your@email.com" 
-                  required 
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input 
-                  id="password" 
-                  type="password" 
-                  required 
-                />
-              </div>
-              {!isLogin && (
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input 
-                    id="confirmPassword" 
-                    type="password" 
-                    required 
-                  />
-                </div>
-              )}
-              <Separator />
-              <Link to="/dashboard">
-                <Button className="w-full">
-                  {isLogin ? "Sign In" : "Create Account"}
-                </Button>
-              </Link>
-            </form>
-
-            {isLogin && (
-              <div className="text-center">
-                <a href="#" className="text-sm text-primary hover:underline">
-                  Forgot your password?
-                </a>
-              </div>
-            )}
-
-            <div className="text-center">
-              <p className="text-sm text-muted-foreground">
-                {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-                <button 
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="text-primary hover:underline"
-                >
-                  {isLogin ? "Sign up" : "Sign in"}
-                </button>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="shadow-card p-6 rounded-lg bg-card">
+          {isLogin ? (
+            <SignIn afterSignInUrl="/dashboard" />
+          ) : (
+            <SignUp afterSignInUrl="/dashboard" />
+          )}
+        </div>
 
         <div className="text-center mt-8">
           <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
             ← Back to home
           </Link>
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-sm text-muted-foreground">
+            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+            <button 
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-primary hover:underline"
+            >
+              {isLogin ? "Sign up" : "Sign in"}
+            </button>
+          </p>
         </div>
       </div>
     </div>

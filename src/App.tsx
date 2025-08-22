@@ -20,13 +20,16 @@ import FreeScan from "./pages/FreeScan";
 import NotFound from "./pages/NotFound";
 import FreeScanResults from "./pages/FreeScanResults";
 import FreeScanProgress from "./pages/FreeScanProgress";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -50,6 +53,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
