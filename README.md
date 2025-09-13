@@ -1,60 +1,72 @@
-# 🛡️ Pentraq — Automated Web Security Auditor (Frontend MVP)
+# Vite + React + Shadcn/ui + TypeScript Starter
 
-**Pentraq** is a forward-thinking cybersecurity SaaS platform that allows users to perform automated vulnerability scans on their websites. This repository contains the **frontend-only MVP** implementation, built using **Next.js**, **Tailwind CSS**, and a modern **grayscale UI system**.
+This is a starter template for building modern web applications using a powerful combination of technologies. It's pre-configured to get you up and running quickly.
 
-This codebase is designed to be modular, scalable, and ready for integration with backend APIs in the future. It’s ideal for freelance developers, agencies, and digital product teams who need fast, actionable insights into their web security posture.
+## ✨ Features
 
----
+- ⚛️ **React 18** with hooks
+- ⚡️ **Vite** for fast development and builds
+- 🔷 **TypeScript** for static typing
+- 🎨 **shadcn/ui** for beautifully designed, accessible, and customizable components
+- tailwind-merge and clsx for utility class management
+- eslint and prettier for code quality and formatting
 
-## 🌐 Live Demo (Coming Soon)
+## 🚀 Getting Started
 
-> 🔗 https://pentraq.vercel.app  
-> 🚧 Currently in frontend-only phase. Backend integrations will follow in v1.1.
+### Prerequisites
 
----
+- [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
+- [pnpm](https://pnpm.io/installation) (or npm/yarn)
 
-## 📸 Screenshots
+### Installation
 
-| Homepage | Login Page | Dashboard (Coming Soon) |
-|----------|-------------|--------------------------|
-| ![Homepage](./public/screenshots/home.png) | ![Login](./public/screenshots/login.png) | ![Coming Soon](./public/screenshots/comingsoon.png) |
+1.  **Clone the repository:**
 
----
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
 
-## 📦 Tech Stack
+2.  **Install dependencies:**
 
-| Tech            | Usage                                |
-|-----------------|----------------------------------------|
-| **Next.js**     | Core frontend framework               |
-| **React**       | Component-based UI                    |
-| **Tailwind CSS**| Utility-first styling                 |
-| **Framer Motion** | Page/element transitions            |
-| **Dark/Light Theme** | Built using Tailwind’s `dark:` mode |
-| **TypeScript (Optional)** | Ready to enable if needed         |
+    ```bash
+    pnpm install
+    ```
+    or
+    ```bash
+    npm install
+    ```
 
----
----
+### Running the Development Server
 
-## 🚀 Features
+To start the local development server, run:
 
-- ✅ Beautiful, responsive **landing page** for marketing
-- 🌗 Fully functional **dark/light mode** toggle
-- 🔐 Auth pages (Login / Signup) with clean UX
-- 🧠 Feature sections and pricing grid
-- 📄 Blog and contact pages
-- ⚙️ Built with **frontend-backend separation** in mind
-- 📱 Optimized for all screen sizes
-- 🧩 Easily extendable with backend APIs
+```bash
+pnpm run dev
+```
 
----
+The application will be available at `http://localhost:5173` (or another port if 5173 is in use).
 
-## 🔮 Roadmap
+## 📦 Available Scripts
 
-| Milestone                 | Status     | Description                                                  |
-|---------------------------|------------|--------------------------------------------------------------|
-| 🔹 Frontend MVP            | ✅ Done     | Public UI for homepage and auth                              |
-| 🔹 Backend Integration     | ⏳ Planned  | API to process and return security scans                     |
-| 🔹 Dashboard UI            | ✅ Done      | Logged-in user dashboard, history, and account management    |
-| 🔹 Real-time Notifications | 🔜 Next     | Email or UI notifications when scans complete                |
-| 🔹 Payment Integration     | 🔜 Later    | Stripe + tiered pricing for Pro/Agency plans                 |
-| 🔹 CMS for Blog            | 🔜 Later    | Sanity or Notion-based blog backend  
+-   `pnpm run dev`: Starts the development server with Hot Module Replacement (HMR).
+-   `pnpm run build`: Compiles the application for production.
+-   `pnpm run lint`: Lints the code using ESLint.
+-   `pnpm run preview`: Serves the production build locally for previewing.
+
+## 📁 Project Structure
+
+```
+.
+├── public/              # Static assets
+├── src/
+│   ├── components/      # Reusable components (especially shadcn/ui)
+│   ├── pages/           # Application pages
+│   ├── lib/             # Utility functions
+│   ├── assets/          # Images, fonts, etc.
+│   ├── App.tsx          # Main application component
+│   └── main.tsx         # Entry point of the application
+├── package.json         # Project metadata and dependencies
+├── tsconfig.json        # TypeScript configuration
+└── vite.config.ts       # Vite configuration
+```
