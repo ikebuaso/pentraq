@@ -4,19 +4,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { Label } from "@/components/ui/label";
 import { 
   Shield, 
   AlertTriangle, 
   CheckCircle, 
-  FileText, 
   Download, 
   Share,
   Globe,
   Code,
   Clock,
-  TrendingUp,
   Filter,
-  Search
+  Search,
+  ExternalLink,
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -69,190 +70,205 @@ X-XSS-Protection: 1; mode=block`
     }
   ];
 
-  const getSeverityColor = (severity: string) => {
+  const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case "critical":
-        return "destructive";
+        return <Badge variant="destructive" className="font-black uppercase tracking-tighter">Critical</Badge>;
       case "high":
-        return "destructive";
+        return <Badge variant="destructive" className="font-bold uppercase tracking-tighter">High</Badge>;
       case "medium":
-        return "warning";
+        return <Badge variant="secondary" className="bg-yellow-500/10 text-yellow-600 border-none font-bold uppercase tracking-tighter">Medium</Badge>;
       case "low":
-        return "secondary";
+        return <Badge variant="outline" className="text-muted-foreground font-bold uppercase tracking-tighter">Low</Badge>;
       default:
-        return "secondary";
+        return <Badge variant="secondary" className="font-bold uppercase tracking-tighter">{severity}</Badge>;
     }
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
       case "critical":
-        return <AlertTriangle className="w-4 h-4 text-destructive" />;
+        return <AlertTriangle className="w-5 h-5 text-destructive" />;
       case "high":
-        return <AlertTriangle className="w-4 h-4 text-destructive" />;
+        return <AlertTriangle className="w-5 h-5 text-destructive" />;
       case "medium":
-        return <AlertTriangle className="w-4 h-4 text-warning" />;
+        return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
       case "low":
-        return <AlertTriangle className="w-4 h-4 text-muted-foreground" />;
+        return <AlertTriangle className="w-5 h-5 text-muted-foreground" />;
       default:
-        return <CheckCircle className="w-4 h-4 text-success" />;
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
     }
   };
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="container mx-auto space-y-8 py-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-in fade-in slide-in-from-bottom duration-500">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Security Scan Results</h1>
-            <p className="text-muted-foreground">Security assessment for example.com</p>
+            <div className="flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[10px] mb-1">
+              <Shield className="w-3.5 h-3.5" />
+              Completed Scan
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground truncate max-w-md">example.com</h1>
+            <p className="text-muted-foreground font-medium mt-1">Audit conducted on January 26, 2026 • 2:35 PM</p>
           </div>
-          <div className="flex space-x-2">
-            <Button variant="outline">
-              <Share className="w-4 h-4 mr-2" />
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" className="font-bold gap-2 border-border/60">
+              <Share className="w-4 h-4" />
               Share
             </Button>
-            <Button>
-              <Download className="w-4 h-4 mr-2" />
+            <Button size="sm" className="font-bold gap-2 shadow-lg">
+              <Download className="w-4 h-4" />
               Export PDF
             </Button>
           </div>
         </div>
 
         {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="shadow-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Security Score</CardTitle>
-              <Shield className="w-4 h-4 text-muted-foreground" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in slide-in-from-bottom duration-500 delay-150">
+          <Card className="border-border/60 shadow-sm border-l-4 border-l-yellow-500">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Security Score</CardTitle>
+              <Shield className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-warning">72%</div>
-              <div className="flex items-center space-x-1 mt-2">
-                <Progress value={72} className="flex-1 h-2" />
+              <div className="text-3xl font-black text-foreground">72%</div>
+              <Progress value={72} className="h-1.5 mt-3 bg-muted" />
+              <p className="text-[10px] font-bold text-yellow-600 uppercase tracking-widest mt-2 italic">Medium Risk Level</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/60 shadow-sm border-l-4 border-l-destructive">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Total Issues</CardTitle>
+              <AlertTriangle className="w-4 h-4 text-destructive" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-black text-foreground">12</div>
+              <div className="flex flex-wrap gap-2 mt-3">
+                <Badge variant="destructive" className="px-1.5 py-0 text-[9px] font-black">1 CRITICAL</Badge>
+                <Badge variant="secondary" className="px-1.5 py-0 text-[9px] font-black bg-yellow-500/10 text-yellow-600 border-none">4 MEDIUM</Badge>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Medium risk level
-              </p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Issues</CardTitle>
-              <AlertTriangle className="w-4 h-4 text-muted-foreground" />
+          <Card className="border-border/60 shadow-sm">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Coverage</CardTitle>
+              <Globe className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">12</div>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-destructive">1 critical</span>, <span className="text-warning">4 medium</span>, <span className="text-muted-foreground">7 low</span>
-              </p>
+              <div className="text-3xl font-black text-foreground">45</div>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-2 italic">Pages Audited</p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pages Scanned</CardTitle>
-              <Globe className="w-4 h-4 text-muted-foreground" />
+          <Card className="border-border/60 shadow-sm">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Duration</CardTitle>
+              <Clock className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">45</div>
-              <p className="text-xs text-muted-foreground">
-                Completed in 4 minutes
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Scan Date</CardTitle>
-              <Clock className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">Today</div>
-              <p className="text-xs text-muted-foreground">
-                2:35 PM - Quick Scan
-              </p>
+              <div className="text-3xl font-black text-foreground">4m 12s</div>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-2 italic">Scan Complete</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Results Tabs */}
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="owasp">OWASP Top 10</TabsTrigger>
-            <TabsTrigger value="vulnerabilities">Vulnerabilities</TabsTrigger>
-            <TabsTrigger value="recommendations">Fix Guide</TabsTrigger>
+        <Tabs defaultValue="vulnerabilities" className="space-y-8 animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+          <TabsList className="bg-muted/50 p-1 border border-border/40 rounded-xl">
+            <TabsTrigger value="vulnerabilities" className="rounded-lg font-bold text-xs uppercase tracking-widest">Findings</TabsTrigger>
+            <TabsTrigger value="owasp" className="rounded-lg font-bold text-xs uppercase tracking-widest">OWASP Top 10</TabsTrigger>
+            <TabsTrigger value="recommendations" className="rounded-lg font-bold text-xs uppercase tracking-widest">Remediation</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Security Score Breakdown */}
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle>Security Score Breakdown</CardTitle>
-                  <CardDescription>Detailed assessment by category</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {[
-                    { name: "Injection", score: 60, status: "critical" },
-                    { name: "Broken Authentication", score: 85, status: "good" },
-                    { name: "Sensitive Data Exposure", score: 75, status: "medium" },
-                    { name: "XML External Entities", score: 90, status: "good" },
-                    { name: "Broken Access Control", score: 70, status: "medium" },
-                    { name: "Security Misconfiguration", score: 65, status: "medium" }
-                  ].map((item, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>{item.name}</span>
-                        <span className="font-medium">{item.score}%</span>
-                      </div>
-                      <Progress value={item.score} className="h-2" />
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+          <TabsContent value="vulnerabilities" className="space-y-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <input 
+                  placeholder="Filter findings..." 
+                  className="w-full pl-10 pr-4 py-2 text-sm bg-muted/30 border border-border/60 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary font-medium"
+                />
+              </div>
+              <Button variant="outline" size="sm" className="font-bold gap-2 border-border/60">
+                <Filter className="w-3.5 h-3.5" />
+                Severity
+              </Button>
+            </div>
 
-              {/* Risk Distribution */}
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle>Risk Distribution</CardTitle>
-                  <CardDescription>Vulnerabilities by severity level</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-4 border rounded-lg border-destructive/20 bg-destructive/5">
-                      <div className="text-2xl font-bold text-destructive">1</div>
-                      <div className="text-sm text-muted-foreground">Critical</div>
-                    </div>
-                    <div className="text-center p-4 border rounded-lg border-destructive/20 bg-destructive/5">
-                      <div className="text-2xl font-bold text-destructive">0</div>
-                      <div className="text-sm text-muted-foreground">High</div>
-                    </div>
-                    <div className="text-center p-4 border rounded-lg border-warning/20 bg-warning/5">
-                      <div className="text-2xl font-bold text-warning">4</div>
-                      <div className="text-sm text-muted-foreground">Medium</div>
-                    </div>
-                    <div className="text-center p-4 border rounded-lg border-muted/20 bg-muted/5">
-                      <div className="text-2xl font-bold text-muted-foreground">7</div>
-                      <div className="text-sm text-muted-foreground">Low</div>
+            <div className="space-y-4">
+              {vulnerabilities.map((vuln) => (
+                <Card key={vuln.id} className="border-border/60 shadow-sm hover:shadow-md transition-shadow group overflow-hidden">
+                  <div className="flex flex-col lg:flex-row">
+                    <div className={`w-1.5 ${vuln.severity === 'critical' ? 'bg-destructive' : vuln.severity === 'medium' ? 'bg-yellow-500' : 'bg-muted'}`} />
+                    <div className="flex-1">
+                      <CardHeader className="p-6 pb-4">
+                        <div className="flex flex-wrap items-start justify-between gap-4">
+                          <div className="flex items-start gap-4">
+                            <div className="mt-1 p-2 bg-muted/50 rounded-lg">
+                              {getSeverityIcon(vuln.severity)}
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2">
+                                <CardTitle className="text-lg font-bold">{vuln.title}</CardTitle>
+                                {getSeverityBadge(vuln.severity)}
+                              </div>
+                              <CardDescription className="text-xs font-bold uppercase tracking-widest opacity-80">{vuln.category}</CardDescription>
+                            </div>
+                          </div>
+                          {vuln.cve && (
+                            <Badge variant="outline" className="font-black text-[10px] border-border/60">{vuln.cve}</Badge>
+                          )}
+                        </div>
+                      </CardHeader>
+                      <CardContent className="px-6 pb-6 space-y-6">
+                        <p className="text-sm font-medium text-muted-foreground leading-relaxed italic">{vuln.description}</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Discovery Location</Label>
+                            <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border border-border/40 font-mono text-xs font-bold text-foreground/80">
+                              <ExternalLink className="w-3.5 h-3.5 opacity-50" />
+                              {vuln.location}
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Remediation Guide</Label>
+                            <p className="text-sm font-bold text-primary flex items-center gap-1.5">
+                              <ChevronRight className="w-4 h-4" />
+                              {vuln.recommendation}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2 pt-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                            <Code className="w-3.5 h-3.5" />
+                            Security Context
+                          </Label>
+                          <pre className="text-[11px] bg-foreground text-background p-4 rounded-xl overflow-x-auto font-mono leading-relaxed shadow-inner">
+                            <code>{vuln.code}</code>
+                          </pre>
+                        </div>
+                      </CardContent>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
           <TabsContent value="owasp" className="space-y-6">
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>OWASP Top 10 Assessment</CardTitle>
-                <CardDescription>Evaluation against OWASP Top 10 2021 standards</CardDescription>
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="text-xl font-bold italic">OWASP Top 10 Assessment</CardTitle>
+                <CardDescription className="text-xs font-bold uppercase tracking-widest opacity-60">Compliance evaluation against 2021 standards</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="p-0">
+                <div className="divide-y divide-border/40">
                   {[
                     { name: "A01:2021 – Broken Access Control", status: "pass", issues: 0 },
                     { name: "A02:2021 – Cryptographic Failures", status: "warning", issues: 2 },
@@ -265,21 +281,22 @@ X-XSS-Protection: 1; mode=block`
                     { name: "A09:2021 – Logging Failures", status: "warning", issues: 2 },
                     { name: "A10:2021 – Server-Side Request Forgery", status: "pass", issues: 0 }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        {item.status === "pass" && <CheckCircle className="w-5 h-5 text-success" />}
-                        {item.status === "warning" && <AlertTriangle className="w-5 h-5 text-warning" />}
+                    <div key={index} className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
+                      <div className="flex items-center space-x-4">
+                        {item.status === "pass" && <CheckCircle className="w-5 h-5 text-green-500" />}
+                        {item.status === "warning" && <AlertTriangle className="w-5 h-5 text-yellow-600" />}
                         {item.status === "fail" && <AlertTriangle className="w-5 h-5 text-destructive" />}
-                        <span className="font-medium">{item.name}</span>
+                        <span className="text-sm font-bold text-foreground italic">{item.name}</span>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-3">
                         {item.issues > 0 && (
-                          <Badge variant={item.status === "fail" ? "destructive" : "secondary"}>
-                            {item.issues} issues
-                          </Badge>
+                          <span className="text-[10px] font-black uppercase text-muted-foreground">{item.issues} findings</span>
                         )}
-                        <Badge variant={item.status === "pass" ? "outline" : item.status === "warning" ? "secondary" : "destructive"}>
-                          {item.status === "pass" ? "PASS" : item.status === "warning" ? "WARN" : "FAIL"}
+                        <Badge 
+                          variant={item.status === "pass" ? "outline" : item.status === "warning" ? "secondary" : "destructive"}
+                          className={`font-black text-[9px] uppercase tracking-tighter ${item.status === "pass" ? "text-green-600 border-green-200 bg-green-50 px-3" : ""}`}
+                        >
+                          {item.status === "pass" ? "SAFE" : item.status === "warning" ? "RISK" : "THREAT"}
                         </Badge>
                       </div>
                     </div>
@@ -289,132 +306,82 @@ X-XSS-Protection: 1; mode=block`
             </Card>
           </TabsContent>
 
-          <TabsContent value="vulnerabilities" className="space-y-6">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <input 
-                    placeholder="Search vulnerabilities..." 
-                    className="w-full pl-10 pr-4 py-2 border border-border rounded-md bg-background text-foreground"
-                  />
-                </div>
-              </div>
-              <Button variant="outline">
-                <Filter className="w-4 h-4 mr-2" />
-                Filter
-              </Button>
-            </div>
-
-            <div className="space-y-4">
-              {vulnerabilities.map((vuln) => (
-                <Card key={vuln.id} className="shadow-card">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        {getSeverityIcon(vuln.severity)}
-                        <div>
-                          <CardTitle className="text-lg">{vuln.title}</CardTitle>
-                          <CardDescription className="flex items-center space-x-2 mt-1">
-                        <Badge variant={getSeverityColor(vuln.severity) as "default" | "secondary" | "destructive" | "outline"}>
-                          {vuln.severity.toUpperCase()}
-                        </Badge>
-                            <span>{vuln.category}</span>
-                            {vuln.cve && (
-                              <Badge variant="outline">{vuln.cve}</Badge>
-                            )}
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-muted-foreground">{vuln.description}</p>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-semibold mb-2">Location</h4>
-                        <code className="text-sm bg-muted p-2 rounded block">
-                          {vuln.location}
-                        </code>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Recommendation</h4>
-                        <p className="text-sm text-muted-foreground">{vuln.recommendation}</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold mb-2 flex items-center">
-                        <Code className="w-4 h-4 mr-2" />
-                        Code Example
-                      </h4>
-                      <pre className="text-sm bg-muted p-4 rounded overflow-x-auto">
-                        <code>{vuln.code}</code>
-                      </pre>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
           <TabsContent value="recommendations" className="space-y-6">
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Priority Fix Recommendations</CardTitle>
-                <CardDescription>Immediate actions to improve your security score</CardDescription>
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="text-xl font-bold italic">Remediation Roadmap</CardTitle>
+                <CardDescription className="text-xs font-bold uppercase tracking-widest opacity-60">Step-by-step security hardening</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="border-l-4 border-destructive bg-destructive/5 p-4 rounded">
-                  <h3 className="font-semibold text-destructive mb-2">🚨 Critical Priority</h3>
-                  <p className="text-sm mb-3">Fix SQL injection vulnerability immediately to prevent data breaches.</p>
-                  <ul className="text-sm space-y-1 text-muted-foreground">
-                    <li>• Implement parameterized queries</li>
-                    <li>• Add input validation and sanitization</li>
-                    <li>• Review all database interactions</li>
-                  </ul>
+              <CardContent className="p-6 space-y-8">
+                <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center font-black">1</div>
+                    <div className="w-px flex-1 bg-border/60 my-2" />
+                  </div>
+                  <div className="flex-1 pt-1 space-y-4">
+                    <h3 className="font-black text-destructive uppercase tracking-widest text-sm">Critical Hardening</h3>
+                    <div className="p-4 bg-destructive/5 border border-destructive/10 rounded-xl space-y-2">
+                      <p className="text-sm font-bold text-foreground">Resolve SQL Injection vulnerabilities immediately.</p>
+                      <ul className="text-xs font-medium space-y-1 text-muted-foreground list-disc list-inside">
+                        <li>Implement parameterized queries for all database inputs</li>
+                        <li>Audit login and search endpoints</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="border-l-4 border-warning bg-warning/5 p-4 rounded">
-                  <h3 className="font-semibold text-warning mb-2">⚠️ Medium Priority</h3>
-                  <p className="text-sm mb-3">Address XSS vulnerabilities and security misconfigurations.</p>
-                  <ul className="text-sm space-y-1 text-muted-foreground">
-                    <li>• Implement Content Security Policy (CSP)</li>
-                    <li>• Add proper output encoding</li>
-                    <li>• Configure security headers</li>
-                  </ul>
+                <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-yellow-500 text-white flex items-center justify-center font-black">2</div>
+                    <div className="w-px flex-1 bg-border/60 my-2" />
+                  </div>
+                  <div className="flex-1 pt-1 space-y-4">
+                    <h3 className="font-black text-yellow-600 uppercase tracking-widest text-sm">Priority Fixes</h3>
+                    <div className="p-4 bg-yellow-500/5 border border-yellow-500/10 rounded-xl space-y-2">
+                      <p className="text-sm font-bold text-foreground">Address XSS and Security Headers.</p>
+                      <ul className="text-xs font-medium space-y-1 text-muted-foreground list-disc list-inside">
+                        <li>Implement a strict Content Security Policy (CSP)</li>
+                        <li>Add X-Frame-Options and HSTS headers</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="border-l-4 border-muted bg-muted/5 p-4 rounded">
-                  <h3 className="font-semibold text-muted-foreground mb-2">ℹ️ Low Priority</h3>
-                  <p className="text-sm mb-3">Improve overall security posture with these enhancements.</p>
-                  <ul className="text-sm space-y-1 text-muted-foreground">
-                    <li>• Add additional security headers</li>
-                    <li>• Implement rate limiting</li>
-                    <li>• Review error handling</li>
-                  </ul>
+                <div className="flex gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-muted text-muted-foreground flex items-center justify-center font-black">3</div>
+                  </div>
+                  <div className="flex-1 pt-1 space-y-4">
+                    <h3 className="font-black text-muted-foreground uppercase tracking-widest text-sm">Best Practices</h3>
+                    <div className="p-4 bg-muted/30 border border-border/40 rounded-xl space-y-2">
+                      <p className="text-sm font-bold text-foreground">General Maintenance.</p>
+                      <ul className="text-xs font-medium space-y-1 text-muted-foreground list-disc list-inside">
+                        <li>Update vulnerable third-party components</li>
+                        <li>Enable thorough automated logging</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link to="/scan-progress">
-            <Button className="w-full sm:w-auto">
-              <Shield className="w-4 h-4 mr-2" />
-              Run New Scan
+        {/* Footer Actions */}
+        <div className="flex flex-wrap gap-4 pt-6 animate-in fade-in slide-in-from-bottom duration-500 delay-500">
+          <Link to="/scan-setup">
+            <Button className="font-black italic shadow-lg gap-2">
+              <Shield className="w-4 h-4" />
+              Configure New Scan
             </Button>
           </Link>
-          <Button variant="outline" className="w-full sm:w-auto">
-            <Download className="w-4 h-4 mr-2" />
-            Download Full Report
+          <Button variant="outline" className="font-bold gap-2 border-border/60">
+            <Download className="w-4 h-4" />
+            Full Raw Export
           </Button>
-          <Link to="/projects">
-            <Button variant="ghost" className="w-full sm:w-auto">
-              Back to Projects
+          <Link to="/projects" className="ml-auto">
+            <Button variant="ghost" className="font-bold text-muted-foreground hover:text-foreground">
+              ← Return to Projects
             </Button>
           </Link>
         </div>

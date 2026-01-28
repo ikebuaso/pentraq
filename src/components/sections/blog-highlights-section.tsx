@@ -1,6 +1,7 @@
 import { Calendar, ArrowRight, Clock } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const blogPosts = [
   {
@@ -32,11 +33,11 @@ const blogPosts = [
 export function BlogHighlightsSection() {
   return (
     <section className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
             Latest Security
-            <span className="text-accent"> Insights</span>
+            <span className="text-primary truncate"> Insights</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Stay up-to-date with the latest security trends, best practices, 
@@ -45,47 +46,55 @@ export function BlogHighlightsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {blogPosts.map((post) => (
             <Card 
               key={post.title}
-              className="hover-lift border-border/50 card-gradient group cursor-pointer"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className="group overflow-hidden border-border/60 hover:border-border transition-all hover:shadow-lg bg-card"
             >
               <CardHeader className="p-0">
-                <div className="aspect-video bg-muted rounded-t-lg mb-4 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-accent/20 to-muted flex items-center justify-center">
+                <div className="aspect-video bg-muted overflow-hidden">
+                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-muted flex items-center justify-center transition-transform group-hover:scale-105 duration-500">
                     <div className="text-center space-y-2">
-                      <div className="w-12 h-12 bg-accent/30 rounded-lg mx-auto flex items-center justify-center">
-                        <Calendar className="h-6 w-6 text-accent" />
+                      <div className="w-12 h-12 bg-primary/20 rounded-lg mx-auto flex items-center justify-center">
+                        <Calendar className="h-6 w-6 text-primary" />
                       </div>
-                      <div className="text-xs text-muted-foreground">{post.category}</div>
+                      <Badge variant="outline" className="text-[10px] uppercase tracking-wider font-bold">
+                        {post.category}
+                      </Badge>
                     </div>
                   </div>
                 </div>
-                <div className="px-6 space-y-2">
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                    <Calendar className="h-3 w-3" />
-                    <span>{post.date}</span>
+                <div className="p-6 space-y-3">
+                  <div className="flex items-center space-x-3 text-xs font-medium text-muted-foreground">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="h-3 w-3" />
+                      <span>{post.date}</span>
+                    </div>
                     <span>•</span>
-                    <Clock className="h-3 w-3" />
-                    <span>{post.readTime}</span>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="h-3 w-3" />
+                      <span>{post.readTime}</span>
+                    </div>
                   </div>
-                  <CardTitle className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-2">
+                  <CardTitle className="text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
                   </CardTitle>
                 </div>
               </CardHeader>
               
-              <CardContent className="px-6 pb-6">
-                <CardDescription className="text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+              <CardContent className="px-6 pb-6 pt-0">
+                <CardDescription className="text-muted-foreground leading-relaxed mb-6 line-clamp-2">
                   {post.excerpt}
                 </CardDescription>
                 
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">
+                <div className="flex items-center justify-between pt-4 border-t">
+                  <Badge variant="secondary" className="font-semibold px-2 py-0.5">
                     {post.category}
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all" />
+                  </Badge>
+                  <div className="flex items-center text-sm font-bold text-primary opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+                    Read More
+                    <ArrowRight className="ml-1 h-3 w-3 translate-y-[0.5px]" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -96,7 +105,7 @@ export function BlogHighlightsSection() {
           <Button 
             variant="outline" 
             size="lg"
-            className="border-border hover:bg-muted"
+            className="px-8 shadow-sm"
           >
             View All Articles
             <ArrowRight className="ml-2 h-4 w-4" />

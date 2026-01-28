@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   User,
   Key,
@@ -25,10 +26,13 @@ import {
   Copy,
   RefreshCw,
   Save,
+  Mail,
+  Building,
+  Smartphone,
+  ChevronRight,
+  ExternalLink
 } from "lucide-react";
 import { useState } from "react";
-
-// Removed UserContext and UserProvider related to Supabase
 
 const Settings = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,417 +40,316 @@ const Settings = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="container mx-auto max-w-5xl space-y-8 py-6">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Settings</h1>
-          <p className="text-muted-foreground">
-            Manage your account preferences and security settings
+        <div className="animate-in fade-in slide-in-from-bottom duration-500">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground italic">System Settings</h1>
+          <p className="text-muted-foreground font-medium mt-1">
+            Manage your digital identity, security protocols, and integration keys
           </p>
         </div>
 
-        <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="api">API Keys</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        <Tabs defaultValue="profile" className="space-y-8 animate-in fade-in slide-in-from-bottom duration-700 delay-150">
+          <TabsList className="bg-muted/50 p-1 border border-border/40 rounded-xl overflow-x-auto whitespace-nowrap">
+            <TabsTrigger value="profile" className="rounded-lg font-bold text-xs uppercase tracking-widest px-6">Identity</TabsTrigger>
+            <TabsTrigger value="security" className="rounded-lg font-bold text-xs uppercase tracking-widest px-6">Cyber-Security</TabsTrigger>
+            <TabsTrigger value="api" className="rounded-lg font-bold text-xs uppercase tracking-widest px-6">API Access</TabsTrigger>
+            <TabsTrigger value="notifications" className="rounded-lg font-bold text-xs uppercase tracking-widest px-6">Alerts</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="profile" className="space-y-6">
-            {/* Profile Information */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <User className="w-5 h-5" />
-                  <span>Profile Information</span>
+          <TabsContent value="profile" className="space-y-8">
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                  <User className="w-5 h-5 text-primary" />
+                  <span>Public Dossier</span>
                 </CardTitle>
-                <CardDescription>
-                  Update your personal information and preferences
-                </CardDescription>
+                <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Personal information and workspace visibility</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center space-x-6">
-                  <Avatar className="w-20 h-20">
-                    <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
-                    <AvatarFallback className="text-lg">JD</AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-2">
-                    <Button variant="outline">Change Avatar</Button>
-                    <p className="text-sm text-muted-foreground">
-                      JPG, PNG or GIF. Max size 2MB.
+              <CardContent className="p-8 space-y-10">
+                <div className="flex flex-col sm:flex-row items-center gap-8">
+                  <div className="relative group">
+                    <Avatar className="w-28 h-28 border-4 border-muted shadow-xl transition-transform group-hover:scale-105">
+                      <AvatarFallback className="text-2xl font-black bg-primary/10 text-primary italic">JD</AvatarFallback>
+                    </Avatar>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-background/60 rounded-full cursor-pointer">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-primary">Upload</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3 text-center sm:text-left">
+                    <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                       <Badge className="font-black uppercase text-[10px]">PRO USER</Badge>
+                       <Badge variant="outline" className="font-bold text-[10px] border-border/60">EST. 2026</Badge>
+                    </div>
+                    <p className="text-sm font-medium text-muted-foreground max-w-xs">
+                      Update your avatar to personalize your dashboard and collaborative scans.
                     </p>
+                    <Button variant="outline" size="sm" className="font-bold border-border/60">Edit Identity Image</Button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" defaultValue="John" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                  <div className="space-y-2.5">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">First Name</Label>
+                    <Input defaultValue="John" className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" defaultValue="Doe" />
+                  <div className="space-y-2.5">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Last Name</Label>
+                    <Input defaultValue="Doe" className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                <div className="space-y-2.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60 flex items-center gap-2">
+                    <Mail className="w-3 h-3" />
+                    Verified Email
+                  </Label>
                   <Input
-                    id="email"
                     type="email"
                     defaultValue="john@example.com"
+                    className="h-11 font-bold border-border/60 focus-visible:ring-primary bg-muted/20"
+                    readOnly
                   />
+                  <p className="text-[10px] text-primary/60 font-black uppercase italic tracking-widest">Enterprise Verified</p>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="company">Company</Label>
-                  <Input id="company" placeholder="Your company name" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2.5">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60 flex items-center gap-2">
+                      <Building className="w-3 h-3" />
+                      Organization
+                    </Label>
+                    <Input placeholder="Global Security Inc." className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
+                  </div>
+                  <div className="space-y-2.5">
+                    <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60 flex items-center gap-2">
+                       <Smartphone className="w-3 h-3" />
+                       Emergency Contact
+                    </Label>
+                    <Input placeholder="+1 (555) 000-0000" className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="bio">Bio</Label>
+                <div className="space-y-2.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Profile Narrative</Label>
                   <Textarea
-                    id="bio"
-                    placeholder="Tell us about yourself..."
-                    className="resize-none"
-                    rows={3}
+                    placeholder="Tell the community about your security focus..."
+                    className="resize-none h-32 font-medium border-border/60 focus-visible:ring-primary"
                   />
                 </div>
 
-                <Button>
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Changes
-                </Button>
+                <Separator className="bg-border/40" />
+
+                <div className="flex justify-end pt-2">
+                  <Button className="font-black italic shadow-lg gap-2 px-8">
+                    <Save className="w-4 h-4" />
+                    Commit Changes
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="security" className="space-y-6">
-            {/* Change Password */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Shield className="w-5 h-5" />
-                  <span>Change Password</span>
+          <TabsContent value="security" className="space-y-8">
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                  <Shield className="w-5 h-5 text-primary" />
+                  <span>Credential Management</span>
                 </CardTitle>
-                <CardDescription>
-                  Update your password to keep your account secure
-                </CardDescription>
+                <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Hardening your account access</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="currentPassword">Current Password</Label>
-                  <div className="relative">
-                    <Input
-                      id="currentPassword"
-                      type={showPassword ? "text" : "password"}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="w-4 h-4" />
-                      ) : (
-                        <Eye className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="newPassword">New Password</Label>
-                  <Input id="newPassword" type="password" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                  <Input id="confirmPassword" type="password" />
-                </div>
-
-                <Button>Update Password</Button>
-              </CardContent>
-            </Card>
-
-            {/* Two-Factor Authentication */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Two-Factor Authentication</CardTitle>
-                <CardDescription>
-                  Add an extra layer of security to your account
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium">Authenticator App</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Use an app like Google Authenticator
-                    </p>
-                  </div>
-                  <Badge variant="outline">Not Enabled</Badge>
-                </div>
-                <Button variant="outline">Enable 2FA</Button>
-              </CardContent>
-            </Card>
-
-            {/* Login Sessions */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Active Sessions</CardTitle>
-                <CardDescription>
-                  Manage your active login sessions
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <div className="font-medium">Chrome on Windows</div>
-                      <div className="text-sm text-muted-foreground">
-                        Current session • 192.168.1.1
-                      </div>
-                    </div>
-                    <Badge className="bg-success text-success-foreground">
-                      Current
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <div className="font-medium">Safari on iPhone</div>
-                      <div className="text-sm text-muted-foreground">
-                        2 hours ago • 192.168.1.25
-                      </div>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      Revoke
-                    </Button>
-                  </div>
-                </div>
-                <Button variant="destructive">Revoke All Sessions</Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="api" className="space-y-6">
-            {/* API Keys */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Key className="w-5 h-5" />
-                  <span>API Keys</span>
-                </CardTitle>
-                <CardDescription>
-                  Manage your API keys for programmatic access
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="p-8 space-y-6">
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex-1">
-                      <div className="font-medium">Production API Key</div>
-                      <div className="text-sm text-muted-foreground">
-                        Created on Jan 15, 2024 • Last used 2 hours ago
-                      </div>
-                      <div className="flex items-center space-x-2 mt-2">
-                        <code className="text-sm bg-muted px-2 py-1 rounded">
-                          {showApiKey
-                            ? "pk_live_1234567890abcdef..."
-                            : "pk_live_••••••••••••••••"}
-                        </code>
+                  <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+                    <div className="space-y-2.5">
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Current Cipher</Label>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          className="h-11 font-bold border-border/60 pr-12 focus-visible:ring-primary"
+                        />
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => setShowApiKey(!showApiKey)}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
+                          onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showApiKey ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Copy className="w-4 h-4" />
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </Button>
                       </div>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm">
-                        <RefreshCw className="w-4 h-4 mr-2" />
-                        Regenerate
-                      </Button>
-                      <Button variant="destructive" size="sm">
-                        Revoke
-                      </Button>
                     </div>
                   </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2.5">
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">New Access Phrase</Label>
+                      <Input type="password" className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
+                    </div>
+                    <div className="space-y-2.5">
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Verify New Phrase</Label>
+                      <Input type="password" className="h-11 font-bold border-border/60 focus-visible:ring-primary" />
+                    </div>
+                  </div>
+                  <div className="flex justify-start">
+                    <Button variant="outline" className="font-bold border-border/60 italic hover:bg-muted/50 transition-colors">Rotate Password</Button>
+                  </div>
+                </div>
 
-                  <div className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex-1">
-                      <div className="font-medium">Development API Key</div>
-                      <div className="text-sm text-muted-foreground">
-                        Created on Jan 10, 2024 • Last used 1 day ago
-                      </div>
-                      <div className="flex items-center space-x-2 mt-2">
-                        <code className="text-sm bg-muted px-2 py-1 rounded">
-                          pk_test_••••••••••••••••
-                        </code>
-                        <Button variant="ghost" size="icon">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Copy className="w-4 h-4" />
-                        </Button>
+                <Separator className="bg-border/40" />
+
+                <div className="space-y-6 pt-2">
+                  <div className="flex items-center justify-between p-6 border border-primary/20 bg-primary/5 rounded-2xl group transition-all hover:bg-primary/10">
+                    <div className="space-y-1">
+                      <h3 className="font-black italic text-foreground tracking-tight flex items-center gap-2">
+                        Multifactor Authentication (MFA)
+                        <Badge className="bg-primary/10 text-primary border-none text-[8px] font-black translate-y-[1px]">REC.</Badge>
+                      </h3>
+                      <p className="text-xs font-medium text-muted-foreground">Standardized TOTP app protection (Authenticator, Authy)</p>
+                    </div>
+                    <Button size="sm" className="font-black italic shadow-md">Enable Protocol</Button>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                       <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground opacity-60">Active Sessions</h3>
+                       <Button variant="ghost" size="sm" className="text-[10px] font-black text-destructive uppercase hover:bg-destructive/10">Terminate All</Button>
+                    </div>
+                    <div className="grid gap-3">
+                      <div className="flex items-center justify-between p-4 border border-border/40 rounded-xl bg-muted/20">
+                        <div className="flex items-center gap-4">
+                          <div className="p-2.5 bg-green-500/10 rounded-lg">
+                            <Smartphone className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-black text-foreground">iPhone 15 Pro • London, UK</p>
+                            <p className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">CURRENT SESSION • 192.168.1.1</p>
+                          </div>
+                        </div>
+                        <Badge className="font-black text-[9px] bg-green-500/10 text-green-600 border-none">ACTIVE</Badge>
                       </div>
                     </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm">
-                        <RefreshCw className="w-4 h-4 mr-2" />
-                        Regenerate
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="api" className="space-y-8">
+            <Card className="border-border/60 shadow-sm overflow-hidden border-t-4 border-t-primary">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                  <Key className="w-5 h-5 text-primary" />
+                  <span>Programmatic Infrastructure</span>
+                </CardTitle>
+                <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Manage your automated audit integration keys</CardDescription>
+              </CardHeader>
+              <CardContent className="p-8 space-y-8">
+                <div className="grid gap-6">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 border border-border/40 rounded-2xl bg-muted/10 group hover:border-primary/20 transition-all">
+                    <div className="flex-1 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-black italic tracking-tight">Main Audit Key</h4>
+                        <Badge variant="outline" className="font-bold text-[9px] uppercase border-border/60">Production</Badge>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <code className="bg-foreground text-background font-mono text-xs font-black p-2.5 rounded-lg shadow-inner flex items-center gap-3">
+                          {showApiKey ? "pt_live_9420_k291_x0194" : "pt_live_••••_••••_••••"}
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-6 w-6 text-primary hover:text-primary-foreground hover:bg-primary"
+                            onClick={() => setShowApiKey(!showApiKey)}
+                          >
+                            {showApiKey ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                          </Button>
+                        </code>
+                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg border border-border/40"><Copy className="w-4 h-4" /></Button>
+                      </div>
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">Provisioned Jan 15, 2026 • Last call: 14 mins ago</p>
+                    </div>
+                    <div className="flex gap-2 mt-4 md:mt-0">
+                      <Button variant="outline" size="sm" className="font-bold border-border/60 gap-1.5 h-10 px-4">
+                        <RefreshCw className="w-3.5 h-3.5" />
+                        Rotate
                       </Button>
-                      <Button variant="destructive" size="sm">
-                        Revoke
-                      </Button>
+                      <Button variant="ghost" size="sm" className="font-bold text-destructive hover:bg-destructive/10 h-10 px-4">Revoke</Button>
                     </div>
                   </div>
                 </div>
 
-                <Button>Create New API Key</Button>
+                <div className="flex justify-start">
+                   <Button className="font-black italic shadow-lg gap-2 px-8">
+                    <Plus className="w-4 h-4" />
+                    Provision New Access Key
+                  </Button>
+                </div>
 
-                <div className="p-4 bg-muted/50 rounded-lg">
-                  <h4 className="font-medium mb-2">API Usage Guidelines</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>
-                      • Keep your API keys secure and never share them publicly
-                    </li>
-                    <li>
-                      • Use production keys only in production environments
-                    </li>
-                    <li>
-                      • Regenerate keys if you suspect they've been compromised
-                    </li>
-                    <li>• Monitor usage to detect any unauthorized access</li>
+                <div className="p-6 bg-primary/5 border border-primary/10 rounded-2xl space-y-4">
+                  <h4 className="font-black uppercase tracking-widest text-[10px] text-primary">Integration Security Rules</h4>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium text-muted-foreground leading-relaxed">
+                     <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full mt-1 shrink-0" /> Never commit keys to public VCS</li>
+                     <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full mt-1 shrink-0" /> Restrict keys to specific IP ranges</li>
+                     <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full mt-1 shrink-0" /> Key rotation recommended every 90 days</li>
+                     <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-primary rounded-full mt-1 shrink-0" /> Monitor audit logs for unusual egress</li>
                   </ul>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          <TabsContent value="notifications" className="space-y-6">
-            {/* Email Notifications */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Bell className="w-5 h-5" />
-                  <span>Email Notifications</span>
+          <TabsContent value="notifications" className="space-y-8">
+             <Card className="border-border/60 shadow-sm overflow-hidden">
+               <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                  <Bell className="w-5 h-5 text-primary" />
+                  <span>Audit Alert Protocols</span>
                 </CardTitle>
-                <CardDescription>
-                  Choose what email notifications you'd like to receive
-                </CardDescription>
+                <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Choose how the system notifies you of threats</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Scan Completion</div>
-                      <div className="text-sm text-muted-foreground">
-                        Get notified when your security scans are complete
+              <CardContent className="p-8 space-y-8">
+                 <div className="grid gap-8">
+                    {[
+                      { icon: Shield, label: "Critical Threat Detection", desc: "Instant SMS/Email alerts for severe infrastructure vulnerabilities.", checked: true },
+                      { icon: Clock, label: "Scan Completion Reports", desc: "Full audit summaries delivered to your inbox upon task finish.", checked: true },
+                      { icon: Smartphone, label: "Weekly Security Pulse", desc: "A holistic overview of your digital security health.", checked: false },
+                      { icon: ExternalLink, label: "Product Intelligence", desc: "Latest hacking trends and Pentraq kernel updates.", checked: true }
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center justify-between gap-6 group">
+                        <div className="flex items-center gap-4">
+                          <div className="p-2.5 bg-muted rounded-xl transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                            <item.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-foreground italic">{item.label}</h4>
+                            <p className="text-xs font-medium text-muted-foreground leading-relaxed max-w-sm">{item.desc}</p>
+                          </div>
+                        </div>
+                        <Switch defaultChecked={item.checked} className="data-[state=checked]:bg-primary" />
+                      </div>
+                    ))}
+                 </div>
+
+                 <Separator className="bg-border/40" />
+
+                 <div className="space-y-6 pt-2">
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">System Schedule</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-2.5">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Audit Timezone</Label>
+                        <Input defaultValue="Global/UTC-8 (Pacific)" className="h-11 font-bold border-border/60" />
+                      </div>
+                      <div className="space-y-2.5">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Quiet Window</Label>
+                        <Input defaultValue="22:00 - 08:00 Standard" className="h-11 font-bold border-border/60" />
                       </div>
                     </div>
-                    <Switch defaultChecked />
-                  </div>
+                 </div>
 
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">
-                        Critical Vulnerabilities
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Immediate alerts for critical security issues
-                      </div>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Weekly Reports</div>
-                      <div className="text-sm text-muted-foreground">
-                        Weekly summary of your security status
-                      </div>
-                    </div>
-                    <Switch />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Account Updates</div>
-                      <div className="text-sm text-muted-foreground">
-                        Billing, security, and account changes
-                      </div>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Product Updates</div>
-                      <div className="text-sm text-muted-foreground">
-                        New features and product announcements
-                      </div>
-                    </div>
-                    <Switch />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Marketing Emails</div>
-                      <div className="text-sm text-muted-foreground">
-                        Tips, best practices, and promotional content
-                      </div>
-                    </div>
-                    <Switch />
-                  </div>
-                </div>
-
-                <Button>Save Notification Preferences</Button>
+                 <div className="flex justify-end pt-4">
+                    <Button className="font-black italic shadow-lg px-8">Update Alert Protocols</Button>
+                 </div>
               </CardContent>
-            </Card>
-
-            {/* Notification Schedule */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Notification Schedule</CardTitle>
-                <CardDescription>
-                  Set your preferred notification timing
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="timezone">Timezone</Label>
-                    <Input id="timezone" defaultValue="UTC-8 (Pacific Time)" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="quietHours">Quiet Hours</Label>
-                    <Input id="quietHours" defaultValue="10:00 PM - 8:00 AM" />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium">Do Not Disturb</div>
-                    <div className="text-sm text-muted-foreground">
-                      Pause all non-critical notifications
-                    </div>
-                  </div>
-                  <Switch />
-                </div>
-              </CardContent>
-            </Card>
+             </Card>
           </TabsContent>
         </Tabs>
       </div>

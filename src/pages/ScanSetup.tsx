@@ -13,137 +13,136 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
-import { Shield, Globe, Settings, Zap, Clock, Search } from "lucide-react";
+import { Shield, Globe, Settings, Zap, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ScanSetup = () => {
   return (
     <DashboardLayout>
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="container mx-auto max-w-5xl space-y-8 py-6">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Setup Security Scan</h1>
-          <p className="text-muted-foreground">Configure your website security audit parameters</p>
+        <div className="animate-in fade-in slide-in-from-bottom duration-500">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground italic">Setup Security Scan</h1>
+          <p className="text-muted-foreground font-medium mt-1">Configure your website security audit parameters</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-bottom duration-500 delay-150">
             {/* Target Website */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Globe className="w-5 h-5" />
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-bold">
+                  <Globe className="w-5 h-5 text-primary" />
                   <span>Target Website</span>
                 </CardTitle>
-                <CardDescription>Enter the website URL you want to scan</CardDescription>
+                <CardDescription className="text-xs font-bold uppercase tracking-widest opacity-60">Enter the website URL to audit</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="website-url">Website URL *</Label>
+              <CardContent className="p-6 space-y-6">
+                <div className="space-y-2.5">
+                  <Label htmlFor="website-url" className="text-sm font-black uppercase tracking-widest text-muted-foreground">Website URL *</Label>
                   <Input 
                     id="website-url" 
                     type="url" 
                     placeholder="https://example.com" 
+                    className="h-12 text-lg font-bold border-border/60 focus-visible:ring-primary shadow-inner bg-background/50"
                     required 
                   />
-                  <p className="text-sm text-muted-foreground">
-                    Enter the full URL including https://
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Please ensure you have authorization to scan this target.
                   </p>
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="project-name">Project Name</Label>
+                <div className="space-y-2.5">
+                  <Label htmlFor="project-name" className="text-sm font-black uppercase tracking-widest text-muted-foreground">Project Name</Label>
                   <Input 
                     id="project-name" 
-                    placeholder="My Website Security Scan" 
+                    placeholder="My Security Project" 
+                    className="h-11 font-semibold border-border/60 focus-visible:ring-primary"
                   />
                 </div>
               </CardContent>
             </Card>
 
             {/* Scan Configuration */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Settings className="w-5 h-5" />
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-bold">
+                  <Settings className="w-5 h-5 text-primary" />
                   <span>Scan Configuration</span>
                 </CardTitle>
-                <CardDescription>Choose your scanning preferences</CardDescription>
+                <CardDescription className="text-xs font-bold uppercase tracking-widest opacity-60">Define your scanning preferences</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="p-6 space-y-8">
                 {/* Scan Type */}
-                <div className="space-y-3">
-                  <Label>Scan Type</Label>
+                <div className="space-y-4">
+                  <Label className="text-sm font-black uppercase tracking-widest text-muted-foreground">Audit Depth</Label>
                   <RadioGroup defaultValue="quick" className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center space-x-2 border rounded-lg p-4">
-                      <RadioGroupItem value="quick" id="quick" />
-                      <div className="flex-1">
-                        <Label htmlFor="quick" className="flex items-center space-x-2 cursor-pointer">
-                          <Zap className="w-4 h-4" />
-                          <span>Quick Scan</span>
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Basic OWASP Top 10 check (~5 minutes)</p>
+                    <Label
+                      htmlFor="quick"
+                      className="flex items-center space-x-4 border border-border/60 rounded-xl p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 group"
+                    >
+                      <RadioGroupItem value="quick" id="quick" className="sr-only" />
+                      <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Zap className="w-5 h-5 text-primary" />
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-2 border rounded-lg p-4">
-                      <RadioGroupItem value="deep" id="deep" />
                       <div className="flex-1">
-                        <Label htmlFor="deep" className="flex items-center space-x-2 cursor-pointer">
-                          <Search className="w-4 h-4" />
-                          <span>Deep Scan</span>
-                        </Label>
-                        <p className="text-sm text-muted-foreground">Comprehensive analysis (~30 minutes)</p>
+                        <span className="block font-bold text-foreground">Quick Scan</span>
+                        <span className="block text-xs font-medium text-muted-foreground">Basic OWASP ~5 mins</span>
                       </div>
-                    </div>
+                    </Label>
+                    <Label
+                      htmlFor="deep"
+                      className="flex items-center space-x-4 border border-border/60 rounded-xl p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 group"
+                    >
+                      <RadioGroupItem value="deep" id="deep" className="sr-only" />
+                      <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Search className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <span className="block font-bold text-foreground">Deep Scan</span>
+                        <span className="block text-xs font-medium text-muted-foreground">Full Audit ~30 mins</span>
+                      </div>
+                    </Label>
                   </RadioGroup>
                 </div>
 
-                <Separator />
-
-                {/* Framework Detection */}
-                <div className="space-y-3">
-                  <Label htmlFor="framework">Framework/Technology</Label>
+                <div className="space-y-4">
+                  <Label htmlFor="framework" className="text-sm font-black uppercase tracking-widest text-muted-foreground">Technology Stack</Label>
                   <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Auto-detect or select manually" />
+                    <SelectTrigger className="h-11 font-semibold border-border/60">
+                      <SelectValue placeholder="Auto-detecting stack..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="auto">Auto-detect</SelectItem>
+                      <SelectItem value="auto">Auto-detect Stack</SelectItem>
                       <SelectItem value="wordpress">WordPress</SelectItem>
-                      <SelectItem value="react">React</SelectItem>
-                      <SelectItem value="angular">Angular</SelectItem>
-                      <SelectItem value="vue">Vue.js</SelectItem>
-                      <SelectItem value="nextjs">Next.js</SelectItem>
-                      <SelectItem value="laravel">Laravel</SelectItem>
-                      <SelectItem value="django">Django</SelectItem>
-                      <SelectItem value="nodejs">Node.js</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="react">React / Next.js</SelectItem>
+                      <SelectItem value="django">Django / Python</SelectItem>
+                      <SelectItem value="nodejs">Node.js / Express</SelectItem>
+                      <SelectItem value="other">Bespoke Framework</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <Separator />
-
-                {/* OWASP Categories */}
-                <div className="space-y-3">
-                  <Label>OWASP Top 10 Categories to Scan</Label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Categories */}
+                <div className="space-y-4">
+                  <Label className="text-sm font-black uppercase tracking-widest text-muted-foreground">Vulnerability Categories</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 border border-border/40 rounded-xl bg-muted/20">
                     {[
                       "Injection Attacks",
-                      "Broken Authentication", 
-                      "Sensitive Data Exposure",
-                      "XML External Entities",
-                      "Broken Access Control",
-                      "Security Misconfiguration",
-                      "Cross-Site Scripting",
-                      "Insecure Deserialization",
-                      "Components with Vulnerabilities",
-                      "Insufficient Logging"
+                      "Authentication", 
+                      "Data Privacy",
+                      "Access Control",
+                      "Misconfigurations",
+                      "XSS Vulnerabilities"
                     ].map((category, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Checkbox id={`category-${index}`} defaultChecked />
-                        <Label htmlFor={`category-${index}`} className="text-sm">
+                      <div key={index} className="flex items-center space-x-3 group">
+                        <Checkbox 
+                          id={`cat-${index}`} 
+                          defaultChecked 
+                          className="border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                        />
+                        <Label htmlFor={`cat-${index}`} className="text-sm font-bold text-foreground/80 group-hover:text-primary transition-colors cursor-pointer">
                           {category}
                         </Label>
                       </div>
@@ -152,120 +151,58 @@ const ScanSetup = () => {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Advanced Options */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Advanced Options</CardTitle>
-                <CardDescription>Optional settings for power users</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="max-depth">Crawl Depth</Label>
-                    <Select defaultValue="3">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">1 level</SelectItem>
-                        <SelectItem value="2">2 levels</SelectItem>
-                        <SelectItem value="3">3 levels</SelectItem>
-                        <SelectItem value="5">5 levels</SelectItem>
-                        <SelectItem value="unlimited">Unlimited</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="scan-speed">Scan Speed</Label>
-                    <Select defaultValue="normal">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="fast">Fast</SelectItem>
-                        <SelectItem value="normal">Normal</SelectItem>
-                        <SelectItem value="thorough">Thorough</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="include-subdomains" />
-                  <Label htmlFor="include-subdomains">Include subdomains</Label>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="follow-redirects" defaultChecked />
-                  <Label htmlFor="follow-redirects">Follow redirects</Label>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-8 animate-in fade-in slide-in-from-right duration-500 delay-300">
             {/* Scan Summary */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
+            <Card className="border-primary/20 shadow-lg bg-primary/5 overflow-hidden">
+              <CardHeader className="border-b border-primary/10 bg-primary/10">
+                <CardTitle className="flex items-center space-x-2.5 text-primary text-lg font-black italic">
                   <Shield className="w-5 h-5" />
-                  <span>Scan Summary</span>
+                  <span>Audit Summary</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Scan Type:</span>
-                    <span>Quick Scan</span>
+              <CardContent className="p-6 space-y-5">
+                {[
+                  { label: "Scan Mode", value: "Quick Audit" },
+                  { label: "Target", value: "Awaiting URL" },
+                  { label: "ETA", value: "~5 Minutes" },
+                  { label: "Depth", value: "10 Checkpoints" }
+                ].map((stat) => (
+                  <div key={stat.label} className="flex justify-between items-center text-sm">
+                    <span className="font-black uppercase tracking-widest text-[10px] text-primary/60">{stat.label}</span>
+                    <span className="font-bold text-foreground">{stat.value}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Estimated Time:</span>
-                    <span>~5 minutes</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Categories:</span>
-                    <span>10/10 selected</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Report Format:</span>
-                    <span>PDF + Web</span>
-                  </div>
+                ))}
+                
+                <Separator className="bg-primary/10" />
+                
+                <div className="pt-2">
+                  <Link to="/scan-progress">
+                    <Button className="w-full h-14 text-lg font-black shadow-xl hover:scale-[1.02] transition-transform">
+                      <Zap className="w-5 h-5 mr-2" />
+                      Start Audit
+                    </Button>
+                  </Link>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-center text-muted-foreground mt-4 opacity-60">
+                    By starting, you agree to our scan policy
+                  </p>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Action Buttons */}
-            <div className="space-y-3">
-              <Link to="/scan-progress" className="block">
-                <Button className="w-full" size="lg">
-                  <Shield className="w-4 h-4 mr-2" />
-                  Start Security Scan
-                </Button>
-              </Link>
-              <Button variant="outline" className="w-full">
-                Save as Template
-              </Button>
-              <Link to="/projects">
-                <Button variant="ghost" className="w-full">
-                  Back to Projects
-                </Button>
-              </Link>
-            </div>
-
             {/* Help */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="text-sm">Need Help?</CardTitle>
+            <Card className="border-border/60 shadow-sm">
+              <CardHeader className="pb-3 px-6 pt-6">
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground">Expert Assistance</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  Not sure what scan type to choose? Quick scans are perfect for regular checks, while deep scans provide comprehensive analysis.
+              <CardContent className="px-6 pb-6 space-y-4">
+                <p className="text-sm font-medium text-muted-foreground leading-relaxed">
+                  Need a professional penetration test? Our security experts can perform a manual deep-dive into your application.
                 </p>
-                <Button variant="link" className="h-auto p-0 text-primary">
-                  View Scanning Guide →
+                <Button variant="outline" className="w-full font-bold h-10 border-border/60">
+                  Request Manual Audit
                 </Button>
               </CardContent>
             </Card>

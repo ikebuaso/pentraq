@@ -3,15 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -29,13 +20,17 @@ import {
   Clock,
   Search,
   Filter,
-  MoreHorizontal
+  MoreHorizontal,
+  ChevronRight,
+  Zap,
+  LayoutGrid,
+  List
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Projects = () => {
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
   const projects = [
     {
@@ -76,31 +71,31 @@ const Projects = () => {
     }
   ];
 
-  const getStatusBadge = (status: string, vulnerabilities: number | null) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case "secure":
-        return <Badge className="bg-success text-success-foreground">Secure</Badge>;
+        return <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50 font-bold uppercase tracking-tighter">Secure</Badge>;
       case "scanning":
-        return <Badge className="bg-primary text-primary-foreground">Scanning</Badge>;
+        return <Badge variant="secondary" className="bg-primary/10 text-primary border-none font-bold uppercase tracking-tighter">Scanning</Badge>;
       case "critical":
-        return <Badge variant="destructive">Critical</Badge>;
+        return <Badge variant="destructive" className="font-black uppercase tracking-tighter">Critical</Badge>;
       case "warning":
-        return <Badge className="bg-warning text-warning-foreground">Warning</Badge>;
+        return <Badge variant="secondary" className="bg-yellow-500/10 text-yellow-600 border-none font-bold uppercase tracking-tighter">Warning</Badge>;
       default:
-        return <Badge variant="secondary">Unknown</Badge>;
+        return <Badge variant="outline">Unknown</Badge>;
     }
   };
 
   const getRiskIcon = (status: string) => {
     switch (status) {
       case "secure":
-        return <CheckCircle className="w-4 h-4 text-success" />;
+        return <CheckCircle className="w-4 h-4 text-green-500" />;
       case "scanning":
-        return <Clock className="w-4 h-4 text-primary" />;
+        return <Clock className="w-4 h-4 text-primary animate-pulse" />;
       case "critical":
         return <AlertTriangle className="w-4 h-4 text-destructive" />;
       case "warning":
-        return <AlertTriangle className="w-4 h-4 text-warning" />;
+        return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
       default:
         return <Shield className="w-4 h-4 text-muted-foreground" />;
     }
@@ -108,153 +103,191 @@ const Projects = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="container mx-auto space-y-8 py-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-in fade-in slide-in-from-bottom duration-500">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Projects</h1>
-            <p className="text-muted-foreground">Manage and monitor your website security scans</p>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground italic">Your Projects</h1>
+            <p className="text-muted-foreground font-medium mt-1">Manage and monitor your infrastructure security footprint</p>
           </div>
-          <Link to="/scan-setup">
-            <Button>Get Started</Button>
-          </Link>
-        </div>
-
-        {/* Filters */}
-        <Card className="shadow-card">
-          <CardContent className="pt-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input placeholder="Search projects..." className="pl-10" />
-                </div>
-              </div>
-              <Button variant="outline">
-                <Filter className="w-4 h-4 mr-2" />
-                Filter
+          <div className="flex items-center gap-3">
+            <div className="flex bg-muted/50 p-1 rounded-lg border border-border/40 mr-2">
+              <Button 
+                variant={viewMode === 'grid' ? 'secondary' : 'ghost'} 
+                size="sm" 
+                className="h-8 w-8 p-0"
+                onClick={() => setViewMode('grid')}
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant={viewMode === 'table' ? 'secondary' : 'ghost'} 
+                size="sm" 
+                className="h-8 w-8 p-0"
+                onClick={() => setViewMode('table')}
+              >
+                <List className="w-4 h-4" />
               </Button>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="shadow-card hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Globe className="w-5 h-5 text-primary" />
-                    <CardTitle className="text-lg">{project.name}</CardTitle>
-                  </div>
-                  <Button variant="ghost" size="icon">
-                    <MoreHorizontal className="w-4 h-4" />
-                  </Button>
-                </div>
-                <CardDescription className="break-all">{project.url}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Status</span>
-                  {getStatusBadge(project.status, project.vulnerabilities)}
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Last Scan</span>
-                  <span className="text-sm font-medium">{project.lastScan}</span>
-                </div>
-                
-                {project.vulnerabilities !== null && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Vulnerabilities</span>
-                    <div className="flex items-center space-x-1">
-                      {getRiskIcon(project.status)}
-                      <span className="text-sm font-medium">{project.vulnerabilities}</span>
-                    </div>
-                  </div>
-                )}
-                
-                {project.riskLevel && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Risk Level</span>
-                    <span className="text-sm font-medium">{project.riskLevel}</span>
-                  </div>
-                )}
-                
-                <div className="flex space-x-2 pt-2">
-                  <Link to="/scan-progress" className="flex-1">
-                    <Button variant="outline" size="sm" className="w-full">
-                      New Scan
-                    </Button>
-                  </Link>
-                  <Link to="/scan-results" className="flex-1">
-                    <Button size="sm" className="w-full">
-                      View Results
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+            <Link to="/scan-setup">
+              <Button className="font-bold shadow-lg gap-2">
+                <Plus className="w-4 h-4" />
+                New Project
+              </Button>
+            </Link>
+          </div>
         </div>
 
-        {/* Projects Table - Alternative view */}
-        <Card className="shadow-card">
-          <CardHeader>
-            <CardTitle>All Projects</CardTitle>
-            <CardDescription>Detailed view of your security scan projects</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Project</TableHead>
-                  <TableHead>URL</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Last Scan</TableHead>
-                  <TableHead>Vulnerabilities</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {projects.map((project) => (
-                  <TableRow key={project.id}>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Globe className="w-4 h-4 text-primary" />
-                        <span className="font-medium">{project.name}</span>
+        {/* Search & Global Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 animate-in fade-in slide-in-from-bottom duration-500 delay-150">
+          <Card className="lg:col-span-3 border-border/60 shadow-sm">
+            <CardContent className="p-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <Input 
+                  placeholder="Filter projects by domain or tag..." 
+                  className="pl-10 h-11 bg-muted/30 border-border/40 focus-visible:ring-primary font-medium" 
+                />
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="border-border/60 shadow-sm bg-primary/5">
+            <CardContent className="p-4 flex items-center justify-between h-full">
+              <div className="text-center flex-1">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Active Scans</p>
+                <p className="text-2xl font-black text-primary">1</p>
+              </div>
+              <div className="w-px h-8 bg-primary/10" />
+              <div className="text-center flex-1">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Healthy</p>
+                <p className="text-2xl font-black text-green-600">2</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {viewMode === 'grid' ? (
+          /* Projects Grid */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+            {projects.map((project) => (
+              <Card key={project.id} className="border-border/60 shadow-sm hover:shadow-xl transition-all group overflow-hidden flex flex-col">
+                <div className={`h-1 w-full ${project.status === 'secure' ? 'bg-green-500' : project.status === 'scanning' ? 'bg-primary' : project.status === 'critical' ? 'bg-destructive' : 'bg-yellow-500'}`} />
+                <CardHeader className="p-6 pb-2">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-muted/50 rounded-lg group-hover:scale-110 transition-transform">
+                        <Globe className="w-5 h-5 text-primary" />
                       </div>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">{project.url}</TableCell>
-                    <TableCell>{getStatusBadge(project.status, project.vulnerabilities)}</TableCell>
-                    <TableCell>{project.lastScan}</TableCell>
-                    <TableCell>
-                      {project.vulnerabilities !== null ? (
-                        <div className="flex items-center space-x-1">
-                          {getRiskIcon(project.status)}
-                          <span>{project.vulnerabilities}</span>
-                        </div>
-                      ) : (
-                        <span className="text-muted-foreground">-</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Link to="/scan-progress">
-                          <Button variant="outline" size="sm">Scan</Button>
-                        </Link>
-                        <Link to="/scan-results">
-                          <Button size="sm">Results</Button>
-                        </Link>
+                      <div className="space-y-0.5">
+                        <CardTitle className="text-xl font-bold tracking-tight">{project.name}</CardTitle>
+                        <CardDescription className="text-xs truncate max-w-[180px] font-medium transition-colors group-hover:text-foreground">
+                          {project.url}
+                        </CardDescription>
                       </div>
-                    </TableCell>
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6 pt-4 flex-1 flex flex-col gap-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Status</p>
+                      {getStatusBadge(project.status)}
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Last Audit</p>
+                      <p className="text-sm font-bold text-foreground/80">{project.lastScan}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border/40 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className={`p-1 rounded-md ${project.status === 'critical' ? 'bg-destructive/10' : 'bg-muted/50'}`}>
+                        {getRiskIcon(project.status)}
+                      </div>
+                      <span className="text-sm font-black text-foreground">
+                        {project.vulnerabilities !== null ? project.vulnerabilities : '-'}
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase ml-1.5 opacity-60">Issues</span>
+                      </span>
+                    </div>
+                    <Link to="/scan-results">
+                      <Button variant="ghost" size="sm" className="font-black text-[10px] uppercase tracking-widest gap-1 group/btn">
+                        Reports
+                        <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
+
+                  <div className="flex gap-2 mt-auto">
+                    <Link to="/scan-setup" className="flex-1">
+                      <Button variant="outline" size="sm" className="w-full font-bold h-10 border-border/60">
+                        Config
+                      </Button>
+                    </Link>
+                    <Link to="/scan-progress" className="flex-1">
+                      <Button size="sm" className="w-full font-black italic h-10 shadow-md">
+                        <Zap className="w-3.5 h-3.5 mr-1.5" />
+                        Audit
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          /* Projects Table */
+          <Card className="border-border/60 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader className="bg-muted/30">
+                  <TableRow className="border-border/40">
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Project</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Status</TableHead>
+                    <TableHead className="text-[10px) font-black uppercase tracking-widest h-12">Last Audit</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Vulnerabilities</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-widest h-12 text-right px-6">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  {projects.map((project) => (
+                    <TableRow key={project.id} className="border-border/40 hover:bg-muted/20 transition-colors group">
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <Globe className="w-4 h-4 text-primary" />
+                          <div>
+                            <p className="font-bold text-sm text-foreground">{project.name}</p>
+                            <p className="text-[10px] font-medium text-muted-foreground">{project.url}</p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>{getStatusBadge(project.status)}</TableCell>
+                      <TableCell className="text-sm font-bold text-foreground/70">{project.lastScan}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2 font-black text-sm">
+                          {getRiskIcon(project.status)}
+                          {project.vulnerabilities !== null ? project.vulnerabilities : '-'}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right px-6">
+                        <div className="flex justify-end gap-2">
+                          <Link to="/scan-progress">
+                            <Button variant="outline" size="sm" className="h-8 font-bold border-border/60">Scan</Button>
+                          </Link>
+                          <Link to="/scan-results">
+                            <Button size="sm" className="h-8 font-black italic">Reports</Button>
+                          </Link>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </DashboardLayout>
   );

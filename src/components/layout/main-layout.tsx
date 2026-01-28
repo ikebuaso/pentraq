@@ -13,38 +13,9 @@ export function MainLayout({
   showNavbar = true,
   showFooter = true,
 }: MainLayoutProps) {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem("theme");
-    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (savedTheme === "dark" || (!savedTheme && systemDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-
-    if (newTheme) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
-      {showNavbar && <Navbar isDark={isDark} onThemeToggle={toggleTheme} />}
+      {showNavbar && <Navbar />}
       <main className="flex-1">{children}</main>
       {showFooter && <Footer />}
     </div>

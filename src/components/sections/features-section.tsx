@@ -1,6 +1,8 @@
 import { Shield, Zap, BarChart3, Users, Code, FileText, Globe, Lock } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 const features = [
   {
@@ -56,11 +58,11 @@ const features = [
 export function FeaturesSection() {
   return (
     <section className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
             Everything You Need for
-            <span className="text-accent"> Web Security</span>
+            <span className="text-primary truncate"> Web Security</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             From vulnerability scanning to compliance reporting, Pentraq provides 
@@ -69,22 +71,21 @@ export function FeaturesSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <Card 
               key={feature.title}
-              className="hover-lift border-border/50 card-gradient group cursor-default"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group border border-border bg-card transition-all hover:shadow-lg"
             >
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                    <feature.icon className="h-6 w-6 text-accent" />
+                  <div className="p-2.5 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">
+                  <Badge variant="secondary" className="font-medium">
                     {feature.highlight}
-                  </span>
+                  </Badge>
                 </div>
-                <CardTitle className="text-lg font-semibold text-foreground">
+                <CardTitle className="text-lg font-semibold">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
@@ -98,21 +99,21 @@ export function FeaturesSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground mb-4">
-            <span>Ready to secure your application?</span>
-          </div>
-          <div className="space-x-4">
+        <div className="text-center mt-16 space-y-6">
+          <p className="text-sm text-muted-foreground">
+            Ready to secure your application?
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Link to="/free-scan">
-            <button className="inline-flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-white font-medium rounded-lg transition-colors shadow-glow">
-              Start Free Scan
-              <Zap className="ml-2 h-4 w-4" />
-            </button>
+              <Button size="lg" className="px-8 shadow-sm">
+                Start Free Scan
+                <Zap className="ml-2 h-4 w-4" />
+              </Button>
             </Link>
             <Link to="/pricing">
-            <button className="inline-flex items-center px-6 py-3 border border-border hover:bg-muted text-foreground font-medium rounded-lg transition-colors">
-              View Pricing
-            </button>
+              <Button variant="outline" size="lg" className="px-8">
+                View Pricing
+              </Button>
             </Link>
           </div>
         </div>

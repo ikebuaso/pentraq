@@ -1,107 +1,84 @@
- 
-import { Shield, Zap, BarChart3, Users, Code, FileText, Globe, Lock, CheckCircle, ArrowRight, Play } from "lucide-react";
+import { Shield, Zap, BarChart3, Users, Code, FileText, Globe, Lock, CheckCircle, ArrowRight, Play, Cpu, Activity, Layout, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MainLayout } from "@/components/layout/main-layout";
+import { Badge } from "@/components/ui/badge";
 
 const mainFeatures = [
   {
     icon: Shield,
-    title: "OWASP-Based Scanning",
-    description: "Comprehensive vulnerability detection following OWASP Top 10 standards and industry best practices for maximum security coverage.",
+    title: "Kernel-Level Audits",
+    description: "Deep infrastructure penetration following global OWASP protocols and hardened security logic for exhaustive threat coverage.",
     benefits: [
-      "Complete OWASP Top 10 coverage",
-      "Custom security rule engine",
-      "Real-time threat intelligence updates",
-      "Zero-day vulnerability detection"
+      "OWASP Top 10 Protocol Exhaustion",
+      "Bespoke Security Logic Engine",
+      "Real-time Threat Intelligence Influx",
+      "Automated Zero-Day Vectoring"
     ],
-    highlight: "Industry Standard"
+    highlight: "Standard Protocol"
   },
   {
     icon: Zap,
-    title: "Lightning Fast Results",
-    description: "Get detailed security reports in under 30 seconds. No waiting, no delays, just instant insights that keep your development cycle moving.",
+    title: "Sub-Second Heuristics",
+    description: "Receive full-spectrum vulnerability reports in fewer than 30 seconds. Eliminate developmental latency with parallel audit execution.",
     benefits: [
-      "Sub-30 second scan completion",
-      "Parallel vulnerability assessment",
-      "Optimized scanning algorithms",
-      "Real-time progress tracking"
+      "Ultra-Low Latency Execution",
+      "Parallel Node Assessment",
+      "High-Velocity Audit Logic",
+      "Live Task Propagation Tracking"
     ],
-    highlight: "< 30 Seconds"
+    highlight: "Engine Velocity"
   },
   {
     icon: BarChart3,
-    title: "Detailed Reporting",
-    description: "Beautiful, actionable reports with severity levels, fix recommendations, and compliance mapping that developers actually want to read.",
+    title: "Actionable Telemetry",
+    description: "High-fidelity reports featuring granular severity metrics, precise remediation paths, and automated compliance mapping.",
     benefits: [
-      "Interactive vulnerability dashboard",
-      "Severity-based prioritization",
-      "Step-by-step remediation guides",
-      "Historical trend analysis"
+      "Dynamic Vulnerability Dossier",
+      "Priority Severity Weighting",
+      "Code-Level Remediation Blueprints",
+      "Longitudinal Trend Analysis"
     ],
-    highlight: "Actionable Insights"
+    highlight: "Financial Grade"
   },
   {
-    icon: Code,
-    title: "Developer-Friendly",
-    description: "API-first design, CLI tools, and CI/CD integrations. Built by developers, for developers with modern workflow integration.",
+    icon: Terminal,
+    title: "Automated Integration",
+    description: "Developer-first architecture with comprehensive API endpoints, CLI binary support, and frictionless CI/CD propagation.",
     benefits: [
-      "Comprehensive REST API",
-      "Command-line interface",
-      "GitHub/GitLab integrations",
-      "Webhook notifications"
+      "Full GraphQL & REST Access",
+      "Native CLI Binary Distribution",
+      "1-Click GitHub Action Deployment",
+      "Web-Hook Triggered Audits"
     ],
-    highlight: "API Ready"
+    highlight: "System Ready"
   }
 ];
 
 const additionalFeatures = [
   {
     icon: FileText,
-    title: "Compliance Ready",
-    description: "Generate reports for SOC 2, ISO 27001, PCI DSS, and other compliance frameworks with automated evidence collection.",
-    category: "Compliance"
+    title: "Compliance Logic",
+    description: "Generate audit evidence for SOC2, ISO 27001, and GDPR with zero manual effort.",
+    category: "Regulatory"
   },
   {
     icon: Users,
-    title: "Team Collaboration",
-    description: "Share findings, assign tasks, and track remediation progress with your security team using built-in collaboration tools.",
-    category: "Teamwork"
+    title: "Tactical Collaboration",
+    description: "Shared dossiers and team-based remediation tracking for elite cyber-teams.",
+    category: "Operations"
   },
   {
     icon: Globe,
-    title: "No Setup Required",
-    description: "Start scanning immediately. No agents to install, no infrastructure to manage, no complex configuration needed.",
-    category: "Simplicity"
+    title: "Agentless Deployment",
+    description: "Instantaneous external audits. Zero infrastructure mutations or local runtime requirements.",
+    category: "Architecture"
   },
   {
     icon: Lock,
-    title: "Privacy First",
-    description: "Your data stays secure. We don't store sensitive information from your scans and follow strict data protection protocols.",
-    category: "Security"
-  }
-];
-
-const useCases = [
-  {
-    title: "Continuous Security Testing",
-    description: "Integrate security testing into your CI/CD pipeline",
-    icon: "🔄"
-  },
-  {
-    title: "Compliance Auditing",
-    description: "Generate audit-ready security reports",
-    icon: "📋"
-  },
-  {
-    title: "Vulnerability Management",
-    description: "Track and remediate security issues systematically",
-    icon: "🛡️"
-  },
-  {
-    title: "Developer Security Training",
-    description: "Learn secure coding through real vulnerability examples",
-    icon: "🎓"
+    title: "Identity Protection",
+    description: "End-to-end encrypted session logic. We never persist sensitive infrastructure ciphers.",
+    category: "Privacy"
   }
 ];
 
@@ -109,84 +86,83 @@ export default function Features() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-background to-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
-            <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-accent/10 rounded-full px-4 py-2">
-                <Shield className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-accent">Platform Features</span>
-              </div>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground">
-                Security Testing
-                <span className="text-accent"> Redefined</span>
-              </h1>
-              
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                From vulnerability detection to compliance reporting, Pentraq provides everything 
-                you need to secure your applications in a single, intuitive platform.
-              </p>
+      <section className="relative pt-32 pb-24 overflow-hidden bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(124,58,237,0.15),transparent)]" />
+        <div className="container relative z-10 mx-auto px-4 text-center space-y-12">
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
+            <div className="flex justify-center">
+              <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 font-black px-4 py-1 uppercase tracking-widest text-[10px] italic">
+                Advanced Capability Matrix
+              </Badge>
             </div>
+            
+            <h1 className="text-5xl lg:text-8xl font-black text-foreground italic tracking-tighter leading-[0.85] uppercase">
+              Audit Intelligence <br />
+              <span className="text-primary italic">Precision</span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-medium leading-relaxed">
+              Pentraq isn't just a scanner—it's a continuous security kernel designed to 
+              harden your digital infrastructure at the speed of modern deployment.
+            </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent-hover text-white shadow-glow">
-                <Play className="mr-2 h-4 w-4" />
-                Watch Demo
-              </Button>
-              <Button variant="outline" size="lg" className="border-border hover:bg-muted">
-                Start Free Scan
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-black italic shadow-2xl h-14 px-10 gap-2 uppercase tracking-widest text-xs">
+              <Play className="h-4 w-4 fill-current" />
+              Analyze System Demo
+            </Button>
+            <Button variant="outline" size="lg" className="border-border hover:bg-muted font-bold h-14 px-10 gap-2 uppercase tracking-widest text-xs">
+              Initialize Free Audit
+              <ArrowRight className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Main Features */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Core Features That
-              <span className="text-accent"> Make a Difference</span>
+      {/* Primary Capabilities */}
+      <section className="py-32 bg-background border-t border-border/40">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-24 space-y-4">
+            <h2 className="text-4xl lg:text-5xl font-black text-foreground italic tracking-tight uppercase">
+              Foundational <span className="text-primary italic">Security Logic</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Built from the ground up to solve real security testing challenges 
-              faced by modern development teams.
+            <p className="text-lg text-muted-foreground font-medium max-w-2xl mx-auto italic">
+              Engineered to decode complex vulnerabilities through high-fidelity heuristics and parallel node assessment.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
             {mainFeatures.map((feature, index) => (
               <Card 
                 key={feature.title}
-                className="hover-lift border-border/50 card-gradient group"
+                className="border-border/60 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-primary/20 group overflow-hidden bg-card"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                      <feature.icon className="h-8 w-8 text-accent" />
+                <div className="absolute top-0 left-0 w-2 h-full bg-primary/10 group-hover:bg-primary transition-colors" />
+                <CardHeader className="p-10 pb-4">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="p-4 bg-primary/5 rounded-2xl group-hover:scale-110 transition-transform text-primary border border-primary/10">
+                      <feature.icon className="h-8 w-8" />
                     </div>
-                    <span className="text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
+                    <Badge className="font-black uppercase tracking-widest text-[9px] bg-muted text-muted-foreground border-none px-3">
                       {feature.highlight}
-                    </span>
+                    </Badge>
                   </div>
-                  <CardTitle className="text-2xl font-semibold text-foreground">
+                  <CardTitle className="text-3xl font-black italic tracking-tighter uppercase mb-4">
                     {feature.title}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground text-base leading-relaxed">
+                  <CardDescription className="text-muted-foreground text-base leading-relaxed font-medium">
                     {feature.description}
                   </CardDescription>
                 </CardHeader>
                 
-                <CardContent>
-                  <ul className="space-y-3">
+                <CardContent className="p-10 pt-4">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {feature.benefits.map((benefit) => (
-                      <li key={benefit} className="flex items-start space-x-3">
-                        <CheckCircle className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">
+                      <li key={benefit} className="flex items-start gap-3">
+                        <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0 opacity-40" />
+                        <span className="text-xs font-bold text-foreground opacity-80 leading-tight">
                           {benefit}
                         </span>
                       </li>
@@ -199,115 +175,119 @@ export default function Features() {
         </div>
       </section>
 
-      {/* Additional Features Grid */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Everything You Need
-              <span className="text-accent"> Out of the Box</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From compliance reporting to team collaboration, we've thought of everything 
-              so you can focus on building secure applications.
-            </p>
+      {/* Grid Features */}
+      <section className="py-32 bg-foreground text-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 space-y-4">
+             <Badge className="bg-primary text-white border-none font-black px-4 py-1 text-[10px] tracking-widest uppercase italic">System Architecture</Badge>
+             <h2 className="text-4xl lg:text-5xl font-black italic tracking-tight uppercase">
+                Enterprise <span className="text-primary italic">Hardening</span>
+             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {additionalFeatures.map((feature, index) => (
-              <Card 
-                key={feature.title}
-                className="hover-lift border-border/50 card-gradient group text-center"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardHeader className="pb-4">
-                  <div className="mx-auto p-3 bg-accent/10 rounded-lg w-fit group-hover:bg-accent/20 transition-colors mb-4">
-                    <feature.icon className="h-6 w-6 text-accent" />
-                  </div>
-                  <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full w-fit mx-auto mb-3">
-                    {feature.category}
-                  </span>
-                  <CardTitle className="text-lg font-semibold text-foreground">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Perfect for
-              <span className="text-accent"> Every Use Case</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Whether you're a solo developer or part of a large enterprise team, 
-              Pentraq adapts to your security testing needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {useCases.map((useCase, index) => (
               <div 
-                key={useCase.title}
-                className="text-center space-y-4 animate-fade-in"
-                style={{ animationDelay: `${index * 150}ms` }}
+                key={feature.title}
+                className="p-8 border border-white/5 bg-white/5 rounded-3xl group hover:border-primary/40 transition-all text-center space-y-6"
               >
-                <div className="text-4xl mb-4">{useCase.icon}</div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  {useCase.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {useCase.description}
-                </p>
+                <div className="mx-auto p-4 bg-white/10 rounded-2xl w-fit group-hover:bg-primary group-hover:text-white transition-all text-primary border border-white/10">
+                  <feature.icon className="h-6 w-6" />
+                </div>
+                <div className="space-y-4">
+                  <Badge variant="outline" className="font-black uppercase tracking-widest text-[9px] border-white/10 text-white/40">
+                    {feature.category}
+                  </Badge>
+                  <h3 className="text-xl font-black italic uppercase tracking-tight text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm font-medium text-white/40 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 hero-gradient text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl lg:text-4xl font-bold">
-              Ready to Experience
-              <span className="text-accent-hover"> Next-Gen Security?</span>
+      {/* Tactical Use Cases */}
+      <section className="py-32 bg-background relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-24 space-y-4">
+            <h2 className="text-4xl lg:text-5xl font-black text-foreground italic tracking-tight uppercase">
+               Operational <span className="text-primary italic">Utility</span>
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Join thousands of developers who've already transformed their security testing workflow with Pentraq.
+            <p className="text-lg text-muted-foreground font-medium italic">
+               Tailored for specialized security workflows and large-scale infrastructure fleets.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
+            {[
+              { title: "Node Injection", desc: "Embed security testing into every PR and deployment node cycle.", icon: Cpu },
+              { title: "Fleet Management", desc: "Holistic oversight across multi-tenant digital environments.", icon: Layout },
+              { title: "Incident Pulse", desc: "Real-time vulnerability telemetry for active threat dossiers.", icon: Activity },
+              { title: "Remediation Flow", desc: "Automated fix propagation via engineering-grade documentation.", icon: FileText }
+            ].map((item, index) => (
+              <div 
+                key={item.title}
+                className="space-y-6 group border-t border-border/60 pt-8"
+              >
+                <div className="p-4 bg-muted rounded-2xl w-fit group-hover:bg-primary group-hover:text-white transition-all border border-border/40">
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black italic uppercase tracking-tighter text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm font-medium text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Matrix */}
+      <section className="py-32 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.1),transparent)]" />
+        <div className="container relative z-10 mx-auto px-4 text-center space-y-12">
+          <div className="space-y-6 max-w-4xl mx-auto">
+            <h2 className="text-5xl lg:text-7xl font-black text-white italic tracking-tighter leading-none uppercase">
+              Secure Your <span className="opacity-40 italic">Infrastructure</span> <br /> Today
+            </h2>
+            <p className="text-xl text-white/70 font-medium leading-relaxed max-w-2xl mx-auto italic">
+              Join the elite circle of infrastructure engineers who have accelerated 
+              their security workflow with the Pentraq kernel.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-accent hover:bg-accent-hover text-white shadow-glow">
-              <Zap className="mr-2 h-4 w-4" />
-              Start Free Scan
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black italic shadow-2xl h-14 px-12 gap-3 uppercase tracking-widest text-xs">
+              <Zap className="h-4 w-4 fill-current" />
+              Initialize Free Audit
             </Button>
             <Button 
               variant="outline" 
               size="lg"
-              className="bg-transparent border-white/30 text-white hover:bg-white/10"
+              className="bg-transparent border-white/30 text-white hover:bg-white/10 font-black h-14 px-12 gap-3 uppercase tracking-widest text-xs italic"
             >
-              View Pricing
-              <ArrowRight className="ml-2 h-4 w-4" />
+              Analyze Pricing
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
 
-          <p className="text-sm text-gray-400">
-            No credit card required • 30-second setup • Instant results
-          </p>
+          <div className="flex justify-center gap-8 pt-4">
+             {["Zero Latency", "Financial-Grade", "OWASP Mapping"].map((feat) => (
+               <div key={feat} className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-white/60">
+                 <div className="w-1.5 h-1.5 bg-white/40 rounded-full" />
+                 {feat}
+               </div>
+             ))}
+          </div>
         </div>
       </section>
     </MainLayout>

@@ -1,96 +1,97 @@
-import { Check, Star, Zap, Shield, Users, Globe } from "lucide-react";
+import { Check, Star, Zap, Shield, Users, Globe, ChevronRight, HelpCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MainLayout } from "@/components/layout/main-layout";
+import { Badge } from "@/components/ui/badge";
 
 export const plans = [
   {
     name: "Freemium",
     price: "$0",
     period: "forever",
-    description: "Perfect for individual developers and small projects",
+    description: "Ideal for solo developers bootstrapping their first secure infrastructure.",
     features: [
       "5 scans per month",
-      "Basic vulnerability detection",
-      "PDF reports",
-      "Email support",
+      "Core vulnerability engine",
+      "Standard PDF reports",
+      "Community email support",
       "OWASP Top 10 coverage",
-      "Basic security insights"
+      "Weekly security pulse"
     ],
     limitations: [
-      "Limited scan depth",
-      "Standard reporting only"
+      "No API access",
+      "Standard scan speed"
     ],
     popular: false,
     cta: "Start Free",
-    highlight: "No Credit Card",
-    icon: Shield
+    highlight: "Non-Commercial",
+    icon: Shield,
+    color: "muted"
   },
   {
-    name: "Pro",
+    name: "Professional",
     price: "$49",
     period: "per month",
-    description: "For professional developers and growing teams",
+    description: "Advanced heuristics and CI/CD automation for high-growth tech teams.",
     features: [
-      "Unlimited scans",
-      "Advanced vulnerability detection",
-      "Detailed remediation guides",
-      "API access with 10,000 calls/month",
-      "Priority support",
-      "Custom reporting templates",
-      "CI/CD integrations",
-      "Advanced compliance reporting",
-      "Historical scan data",
-      "Slack/Teams notifications"
+      "Unlimited infrastructure scans",
+      "Deep-kernel analysis",
+      "1-Click remediation guides",
+      "10,000 API calls /month",
+      "Priority 24/7 support",
+      "Custom branding templates",
+      "Integrations: GitHub, GitLab",
+      "SOC-2 Compliance reporting",
+      "Raw data exports",
+      "Slack & Discord alerts"
     ],
     limitations: [],
     popular: true,
-    cta: "Coming Soon",
-    highlight: "Most Popular",
-    icon: Zap
+    cta: "Join Waitlist",
+    highlight: "Best for Teams",
+    icon: Zap,
+    color: "primary"
   },
   {
-    name: "Agency",
+    name: "Enterprise",
     price: "$199",
     period: "per month",
-    description: "For agencies and large development teams",
+    description: "Elite security protocols and custom audit frameworks for global scale.",
     features: [
-      "Everything in Pro",
-      "White-label reports with custom branding",
-      "Team management & role-based access",
-      "Unlimited API calls",
-      "Dedicated account manager",
-      "SSO integration (SAML, OAuth)",
-      "Custom compliance frameworks",
-      "Multi-tenant dashboard",
-      "Advanced analytics & insights",
-      "SLA guarantees",
-      "Custom integrations"
+      "Everything in Professional",
+      "Dedicated account engineer",
+      "SSO/SAML infrastructure",
+      "On-premise deployment",
+      "Custom scan intervals",
+      "SLA-backed guarantees",
+      "Hardware security audits",
+      "Global asset discovery"
     ],
     limitations: [],
     popular: false,
     cta: "Contact Sales",
-    highlight: "Enterprise Ready",
-    icon: Users
+    highlight: "Custom Scale",
+    icon: Users,
+    color: "muted"
   }
 ];
 
 const faqs = [
   {
-    question: "How accurate are the vulnerability scans?",
-    answer: "Our scans achieve 99.2% accuracy with minimal false positives. We use advanced algorithms and continuously update our detection rules based on the latest threat intelligence."
+    question: "How deep does the vulnerability engine scan?",
+    answer: "Pentraq utilizes a hybrid analysis model, combining static pattern matching with dynamic fuzzing. We penetrate up to 5 layers of subdomains and analyze over 2,000 distinct threat vectors per page audit."
   },
   {
-    question: "Can I integrate Pentraq with my CI/CD pipeline?",
-    answer: "Yes! Pro and Agency plans include comprehensive API access and pre-built integrations for popular CI/CD platforms like Jenkins, GitHub Actions, GitLab CI, and more."
+    question: "Can I automate scans within my developer workflow?",
+    answer: "Absolutely. Our 'Professional' and 'Enterprise' tiers offer a robust REST API and native CI/CD plugins. You can trigger scans on every PR or build cycle with full programmatic control."
   },
   {
-    question: "What compliance standards does Pentraq support?",
-    answer: "We support SOC 2, ISO 27001, PCI DSS, HIPAA, and other major compliance frameworks. Agency plans include custom compliance report generation."
+    question: "What compliance standards are officially mapped?",
+    answer: "We provide automated mapping for SOC 2, ISO 27001, PCI-DSS, and HIPAA. Each audit result includes a specific compliance checklist showing exactly where your infrastructure stands."
   },
   {
-    question: "Is there a free trial for paid plans?",
-    answer: "While we don't offer trials for paid plans, our Free tier gives you a great sense of our capabilities. Plus, all paid plans come with a 30-day money-back guarantee."
+    question: "How does the waitlist for Pro access work?",
+    answer: "We are currently onboarding teams in batches to ensure 1:1 support during integration. Joining the waitlist reserves your priority spot and secures early-bird pricing."
   }
 ];
 
@@ -98,126 +99,117 @@ export default function Pricing() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-background to-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <div className="space-y-4">
-            <div className="inline-flex items-center space-x-2 bg-accent/10 rounded-full px-4 py-2">
-              <Star className="h-4 w-4 text-accent" />
-              <span className="text-sm font-medium text-accent">Pricing Plans</span>
+      <section className="relative pt-32 pb-20 overflow-hidden bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(124,58,237,0.1),transparent)]" />
+        <div className="container relative z-10 mx-auto px-4 text-center space-y-10">
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
+            <div className="flex justify-center">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-none font-black px-4 py-1.5 uppercase tracking-widest text-[10px]">
+                Transparent Licensing
+              </Badge>
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold text-foreground">
-              Choose Your
-              <span className="text-accent"> Security Plan</span>
+            <h1 className="text-5xl lg:text-7xl font-black text-foreground italic tracking-tighter leading-[0.9]">
+              Scale Your <span className="text-primary italic">Defense</span>
             </h1>
             
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Start free and scale as you grow. All plans include our core security scanning 
-              capabilities with transparent, predictable pricing.
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium leading-relaxed">
+              From solo developers to global agencies—secure your infrastructure with 
+              painless, automated security intelligence.
             </p>
           </div>
 
-          <div className="flex justify-center space-x-8 text-sm text-muted-foreground">
-            <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-success" />
-              <span>No setup fees</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-success" />
-              <span>30-day money-back guarantee</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-success" />
-              <span>Cancel anytime</span>
-            </div>
+          <div className="flex flex-wrap justify-center gap-8 pt-4 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+            {[
+              { icon: Check, text: "No dynamic setup fees" },
+              { icon: Check, text: "30-day resilience guarantee" },
+              { icon: Check, text: "Self-service cancellation" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-muted-foreground/60">
+                <div className="p-0.5 bg-green-500/10 rounded-full">
+                   <item.icon className="h-3 w-3 text-green-500" />
+                </div>
+                {item.text}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {/* Pricing Grids */}
+      <section className="py-24 relative bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <Card 
                 key={plan.name}
-                className={`relative hover-lift transition-all duration-300 ${
-                  plan.popular 
-                    ? 'border-accent shadow-glow scale-105' 
-                    : 'border-border/50'
+                className={`flex flex-col border-border/60 shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group overflow-hidden ${
+                  plan.popular ? 'border-primary/40 ring-1 ring-primary/20 scale-[1.05] z-20' : ''
                 }`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-accent text-white px-4 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                      <Star className="h-3 w-3" />
-                      <span>{plan.highlight}</span>
-                    </div>
+                  <div className="bg-primary text-white text-[10px] font-black uppercase tracking-widest py-1.5 text-center italic">
+                    Engineered for Growth
                   </div>
                 )}
-
-                <CardHeader className="pb-6">
-                  <div className="space-y-4">
+                
+                <CardHeader className="p-8 pb-4">
+                  <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl font-semibold text-foreground flex items-center space-x-2">
-                        <plan.icon className="h-5 w-5 text-accent" />
-                        <span>{plan.name}</span>
-                      </CardTitle>
-                      {!plan.popular && (
-                        <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">
-                          {plan.highlight}
-                        </span>
-                      )}
+                      <div className={`p-3 rounded-2xl ${plan.popular ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground text-opacity-60'}`}>
+                        <plan.icon className="h-6 w-6" />
+                      </div>
+                      <Badge variant="outline" className="font-black uppercase tracking-widest text-[9px] border-border/60 opacity-60">
+                        {plan.highlight}
+                      </Badge>
                     </div>
                     
-                    <div className="flex items-baseline space-x-2">
-                      <span className="text-4xl font-bold text-foreground">
+                    <div>
+                        <CardTitle className="text-2xl font-black italic tracking-tight mb-2 uppercase">{plan.name}</CardTitle>
+                        <CardDescription className="text-sm font-medium leading-relaxed">
+                          {plan.description}
+                        </CardDescription>
+                    </div>
+
+                    <div className="flex items-baseline gap-1.5 pt-2">
+                      <span className="text-5xl font-black text-foreground italic tracking-tighter">
                         {plan.price}
                       </span>
-                      <span className="text-muted-foreground">
+                      <span className="text-xs font-black text-muted-foreground uppercase opacity-60 tracking-widest">
                         {plan.period}
                       </span>
                     </div>
-                    
-                    <CardDescription className="text-muted-foreground">
-                      {plan.description}
-                    </CardDescription>
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-6">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start space-x-3">
-                        <Check className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                    {plan.limitations.map((limitation) => (
-                      <li key={limitation} className="flex items-start space-x-3">
-                        <div className="h-4 w-4 mt-0.5 flex-shrink-0">
-                          <div className="h-1 w-3 bg-muted rounded mt-1.5" />
-                        </div>
-                        <span className="text-sm text-muted-foreground/70">
-                          {limitation}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                <CardContent className="p-8 pt-4 flex-1 flex flex-col">
+                  <div className="space-y-6 flex-1">
+                    <div className="h-px bg-border/40 w-full" />
+                    <ul className="space-y-4">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <Check className={`h-4 w-4 mt-0.5 flex-shrink-0 ${plan.popular ? 'text-primary' : 'text-muted-foreground opacity-40'}`} />
+                          <span className="text-sm font-bold text-foreground/80 leading-tight">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                  <Button 
-                    className={`w-full ${
-                      plan.popular 
-                        ? 'bg-accent hover:bg-accent-hover text-white shadow-glow' 
-                        : 'bg-secondary hover:bg-muted text-secondary-foreground'
-                    }`}
-                    size="lg"
-                  >
-                    {plan.cta}
-                  </Button>
+                  <div className="pt-10">
+                    <Button 
+                      className={`w-full h-12 font-black italic shadow-lg gap-2 text-sm uppercase tracking-widest ${
+                        plan.popular 
+                          ? 'bg-primary hover:bg-primary/90 text-white shadow-primary/20' 
+                          : 'bg-foreground hover:bg-muted-foreground text-background'
+                      }`}
+                    >
+                      {plan.cta}
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -225,109 +217,102 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Enterprise Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-accent/10 rounded-full px-4 py-2">
-                <Globe className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-accent">Enterprise</span>
-              </div>
-              
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-                Need Something Custom?
+      {/* Enterprise / Strategy Section */}
+      <section className="py-32 relative overflow-hidden bg-foreground">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 blur-[120px] translate-x-1/2 -translate-y-1/2" />
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <Badge className="bg-primary text-white border-none font-black px-4 py-1.5 text-[10px] tracking-widest uppercase italic">Enterprise Logic</Badge>
+              <h2 className="text-4xl lg:text-5xl font-black text-background italic tracking-tighter leading-none">
+                Large-Scale Audit <span className="text-primary italic">Customization</span>
               </h2>
-              
-              <p className="text-xl text-muted-foreground">
-                For large enterprises with specific requirements, we offer custom solutions 
-                with dedicated support and tailored security frameworks.
+              <p className="text-xl text-background/60 font-medium max-w-2xl mx-auto leading-relaxed">
+                We engineer bespoke security frameworks for global digital fleets using 
+                hardened kernels and dedicated node clusters.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg mx-auto flex items-center justify-center">
-                  <Shield className="h-6 w-6 text-accent" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {[
+                { label: "SOC2/ISO Mapping", icon: Shield, desc: "Automated compliance narratives for global standards." },
+                { label: "VPC Support", icon: Globe, desc: "Scan isolated infrastructure via secure tunneling." },
+                { label: "24/7 Red Alert", icon: Users, desc: "Dedicated engineers assigned to your threat dossier." }
+              ].map((item, i) => (
+                <div key={i} className="space-y-4 text-center group">
+                  <div className="w-14 h-14 bg-white/5 rounded-2xl mx-auto flex items-center justify-center border border-white/10 group-hover:border-primary transition-all">
+                    <item.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-black text-background italic text-lg">{item.label}</h3>
+                    <p className="text-xs font-medium text-background/40 leading-relaxed px-4">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-foreground">Custom Compliance</h3>
-                <p className="text-sm text-muted-foreground">
-                  Tailored compliance frameworks for your industry requirements
-                </p>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg mx-auto flex items-center justify-center">
-                  <Users className="h-6 w-6 text-accent" />
-                </div>
-                <h3 className="font-semibold text-foreground">Dedicated Support</h3>
-                <p className="text-sm text-muted-foreground">
-                  24/7 dedicated account management and priority support
-                </p>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg mx-auto flex items-center justify-center">
-                  <Globe className="h-6 w-6 text-accent" />
-                </div>
-                <h3 className="font-semibold text-foreground">On-Premise Deployment</h3>
-                <p className="text-sm text-muted-foreground">
-                  Self-hosted solutions for maximum security and control
-                </p>
-              </div>
+              ))}
             </div>
 
-            <Button size="lg" className="bg-accent hover:bg-accent-hover text-white shadow-glow">
-              Contact Enterprise Sales
-            </Button>
+            <div className="flex justify-center">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-black italic px-10 h-14 shadow-2xl gap-3">
+                Connect with Infrastructure Sales
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Everything you need to know about our pricing and plans
-            </p>
-          </div>
+      {/* FAQ Intel */}
+      <section className="py-32 bg-background relative">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl lg:text-5xl font-black text-foreground italic tracking-tighter uppercase">
+                 Audit <span className="text-primary italic">Intelligence</span> FAQ
+              </h2>
+              <p className="text-lg text-muted-foreground font-medium max-w-xl mx-auto">
+                Deciphering the Pentraq security kernel and licensing protocols.
+              </p>
+            </div>
 
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <Card 
-                key={faq.question}
-                className="border-border/50 hover-lift"
-                style={{ animationDelay: `${index * 100}ms` }}
+            <div className="grid gap-6">
+              {faqs.map((faq, index) => (
+                <Card 
+                  key={faq.question}
+                  className="border-border/60 shadow-sm hover:shadow-md transition-all group overflow-hidden"
+                >
+                  <CardHeader className="p-8 pb-4">
+                    <div className="flex gap-4">
+                       <HelpCircle className="h-6 w-6 text-primary flex-shrink-0 mt-0.5 opacity-40" />
+                       <CardTitle className="text-xl font-black italic text-foreground tracking-tight leading-tight">
+                         {faq.question}
+                       </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-8 pt-0 pl-16">
+                    <p className="text-muted-foreground font-medium leading-relaxed opacity-80">
+                      {faq.answer}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center space-y-6 pt-10">
+              <div className="h-px bg-border/40 w-24 mx-auto" />
+              <p className="text-sm font-black uppercase tracking-widest text-muted-foreground mb-4 opacity-50">
+                Still need technical clarification?
+              </p>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-border font-bold hover:bg-muted gap-2 px-10"
               >
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-foreground">
-                    {faq.question}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <p className="text-muted-foreground mb-4">
-              Still have questions? We're here to help.
-            </p>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-border hover:bg-muted"
-            >
-              Contact Support
-            </Button>
+                Open Terminal Ticket
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>

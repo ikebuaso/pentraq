@@ -14,7 +14,9 @@ import {
   Square,
   Activity,
   Terminal,
-  Play
+  Play,
+  Zap,
+  Loader2
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -22,7 +24,6 @@ import { useEffect, useRef, useState } from "react";
 const ScanProgress = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [logs, setLogs] = useState([
     { time: "14:30:01", level: "info", message: "Initializing security scan for example.com" },
@@ -103,132 +104,109 @@ const ScanProgress = () => {
   const getStepIcon = (status: string) => {
     switch (status) {
       case "completed":
-        return <CheckCircle className="w-4 h-4 text-success" />;
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
       case "current":
-        return <Activity className="w-4 h-4 text-primary animate-pulse" />;
+        return <Activity className="w-5 h-5 text-primary animate-pulse" />;
       default:
-        return <Clock className="w-4 h-4 text-muted-foreground" />;
+        return <Clock className="w-5 h-5 text-muted-foreground opacity-30" />;
     }
   };
 
   const getLogColor = (level: string) => {
     switch (level) {
       case "success":
-        return "text-success";
+        return "text-green-500";
       case "warning":
-        return "text-warning";
+        return "text-yellow-600";
       case "error":
         return "text-destructive";
       default:
-        return "text-foreground";
+        return "text-foreground/70";
     }
   };
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="container mx-auto space-y-8 py-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-in fade-in slide-in-from-bottom duration-500">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Security Scan in Progress</h1>
-            <p className="text-muted-foreground">Scanning example.com for vulnerabilities</p>
+            <div className="flex items-center gap-2.5 text-primary font-black uppercase tracking-widest text-[10px] mb-1">
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              Live Security Audit
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground italic">Scanning example.com</h1>
+            <p className="text-muted-foreground font-medium mt-1">Deep infrastructure analysis in progress... do not refresh.</p>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex items-center gap-3">
             <Button
               variant="outline"
+              size="sm"
+              className="font-bold gap-2 border-border/60"
               onClick={() => setPaused(p => !p)}
               disabled={progress >= 100}
             >
-              {paused ? <Play className="w-4 h-4 mr-2" /> : <Pause className="w-4 h-4 mr-2" />}
+              {paused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
               {paused ? "Resume" : "Pause"}
             </Button>
             <Button
               variant="destructive"
+              size="sm"
+              className="font-bold gap-2 shadow-lg"
               onClick={() => {
                 setPaused(true);
                 setProgress(0);
                 setLogs([
-                  { time: new Date().toLocaleTimeString(), level: "info", message: "Scan stopped by user." }
+                  { time: new Date().toLocaleTimeString(), level: "info", message: "Scan aborted by root." }
                 ]);
                 if (intervalRef.current) clearInterval(intervalRef.current);
               }}
               disabled={progress === 0 || progress >= 100}
             >
-              <Square className="w-4 h-4 mr-2" />
-              Stop
+              <Square className="w-4 h-4" />
+              Terminate
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Progress */}
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-bottom duration-500 delay-150">
             {/* Overall Progress */}
-            <Card className="shadow-card">
-              <CardHeader>
+            <Card className="border-border/60 shadow-sm overflow-hidden border-l-4 border-l-primary">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center space-x-2">
-                    <Shield className="w-5 h-5" />
-                    <span>Scan Progress</span>
-                  </CardTitle>
-                  <Badge className="bg-primary text-primary-foreground">
-                    In Progress
+                  <div>
+                    <CardTitle className="flex items-center space-x-2.5 text-lg font-bold">
+                      <Shield className="w-5 h-5 text-primary" />
+                      <span>Scan Intelligence</span>
+                    </CardTitle>
+                    <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Real-time audit performance</CardDescription>
+                  </div>
+                  <Badge variant="secondary" className="bg-primary/10 text-primary border-none font-bold animate-pulse">
+                    PROCESSING
                   </Badge>
                 </div>
-                <CardDescription>OWASP Top 10 security vulnerability scan</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Overall Progress</span>
-                    <span>{Math.round(progress)}%</span>
+              <CardContent className="p-8 space-y-8">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Total Progress</span>
+                    <span className="text-3xl font-black text-foreground italic">{Math.round(progress)}<span className="text-sm opacity-60 ml-0.5">%</span></span>
                   </div>
-                  <Progress value={progress} className="h-3" />
+                  <Progress value={progress} className="h-2.5 bg-muted shadow-inner" />
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-foreground">{Math.round(progress)}%</div>
-                    <div className="text-sm text-muted-foreground">Complete</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary">~5</div>
-                    <div className="text-sm text-muted-foreground">Minutes Left</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-success">23</div>
-                    <div className="text-sm text-muted-foreground">Pages Scanned</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-warning">3</div>
-                    <div className="text-sm text-muted-foreground">Issues Found</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Scan Steps */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Scan Steps</CardTitle>
-                <CardDescription>Current scanning process breakdown</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {scanSteps.map((step, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      {getStepIcon(step.status)}
-                      <div className="flex-1">
-                        <div className={`font-medium ${step.status === 'current' ? 'text-primary' : step.status === 'completed' ? 'text-foreground' : 'text-muted-foreground'}`}>
-                          {step.name}
-                        </div>
-                        {step.status === 'current' && (
-                          <div className="text-sm text-muted-foreground">Processing...</div>
-                        )}
-                      </div>
-                      {step.status === 'completed' && (
-                        <CheckCircle className="w-4 h-4 text-success" />
-                      )}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-2">
+                  {[
+                    { label: "Completion", val: `${Math.round(progress)}%`, color: "text-foreground" },
+                    { label: "ETA", val: "~5m", color: "text-primary" },
+                    { label: "Footprint", val: "23 Pgs", color: "text-green-600" },
+                    { label: "Threats", val: "3 Found", color: "text-yellow-600" }
+                  ].map((stat) => (
+                    <div key={stat.label} className="text-left space-y-1">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{stat.label}</p>
+                      <p className={`text-xl font-black ${stat.color}`}>{stat.val}</p>
                     </div>
                   ))}
                 </div>
@@ -236,26 +214,28 @@ const ScanProgress = () => {
             </Card>
 
             {/* Live Logs */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Terminal className="w-5 h-5" />
-                  <span>Live Scan Logs</span>
+            <Card className="border-border/60 shadow-lg overflow-hidden bg-foreground">
+              <CardHeader className="bg-muted/10 border-b border-white/5 py-4 px-6">
+                <CardTitle className="flex items-center space-x-2.5 text-sm font-black italic text-background">
+                  <Terminal className="w-4 h-4 text-primary" />
+                  <span>Kernel Audit Logs</span>
                 </CardTitle>
-                <CardDescription>Real-time scanning activity</CardDescription>
               </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-64 w-full rounded border bg-muted/50 p-4">
-                  <div className="space-y-2 font-mono text-sm">
+              <CardContent className="p-0">
+                <ScrollArea className="h-80 w-full p-6 text-background/90">
+                  <div className="space-y-2.5 font-mono text-[11px] leading-relaxed">
                     {logs.map((log, index) => (
-                      <div key={index} className="flex space-x-3">
-                        <span className="text-muted-foreground">[{log.time}]</span>
-                        <span className={`uppercase text-xs ${getLogColor(log.level)}`}>
+                      <div key={index} className="flex gap-4 group">
+                        <span className="text-white/20 select-none font-bold">[{log.time}]</span>
+                        <span className={`font-black uppercase tracking-tighter w-16 ${getLogColor(log.level)}`}>
                           {log.level}
                         </span>
-                        <span className="text-foreground">{log.message}</span>
+                        <span className="flex-1 opacity-80 group-hover:opacity-100 transition-opacity">{log.message}</span>
                       </div>
                     ))}
+                    <div className="flex gap-2 animate-pulse mt-4">
+                      <div className="w-1.5 h-3 bg-primary" />
+                    </div>
                   </div>
                 </ScrollArea>
               </CardContent>
@@ -263,85 +243,63 @@ const ScanProgress = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Target Info */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Globe className="w-5 h-5" />
-                  <span>Target Website</span>
-                </CardTitle>
+          <div className="space-y-8 animate-in fade-in slide-in-from-right duration-500 delay-300">
+            {/* Scan Steps */}
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground">Audit Pipeline</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <div className="text-sm text-muted-foreground">URL</div>
-                  <div className="font-medium">https://example.com</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground">Scan Type</div>
-                  <div className="font-medium">Quick Scan</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground">Framework</div>
-                  <div className="font-medium">React (Auto-detected)</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground">Started</div>
-                  <div className="font-medium">2:30 PM</div>
+              <CardContent className="p-6">
+                <div className="space-y-6">
+                  {scanSteps.map((step, index) => (
+                    <div key={index} className="flex items-center gap-4 relative group">
+                      {index !== scanSteps.length - 1 && (
+                        <div className={`absolute left-2.5 top-5 w-px h-10 ${step.status === 'completed' ? 'bg-green-500/30' : 'bg-border/40'}`} />
+                      )}
+                      <div className="relative z-10 transition-transform group-hover:scale-110">
+                        {getStepIcon(step.status)}
+                      </div>
+                      <div className="flex-1">
+                        <div className={`text-sm font-bold tracking-tight ${step.status === 'current' ? 'text-primary' : step.status === 'completed' ? 'text-foreground' : 'text-muted-foreground/50'}`}>
+                          {step.name}
+                        </div>
+                        {step.status === 'current' && (
+                          <div className="text-[10px] font-black uppercase tracking-widest text-primary/60 mt-0.5 animate-pulse italic">Scanning...</div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Quick Stats */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Current Findings</CardTitle>
+            {/* Target Card */}
+            <Card className="border-primary/20 bg-primary/5 shadow-lg overflow-hidden">
+              <CardHeader className="border-b border-primary/10">
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-primary/60">Target Dossier</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Critical Issues</span>
-                  <Badge variant="destructive">1</Badge>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Medium Issues</span>
-                  <Badge className="bg-warning text-warning-foreground">2</Badge>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Low Issues</span>
-                  <Badge variant="secondary">5</Badge>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Pages Scanned</span>
-                  <span className="text-sm font-medium">23/45</span>
-                </div>
+              <CardContent className="p-6 space-y-5">
+                {[
+                  { label: "IP Address", val: "104.21.34.120" },
+                  { label: "Platform", val: "Cloudflare/React" },
+                  { label: "Mode", val: "OWASP Quick" },
+                  { label: "Server", val: "AWS US-East-1" }
+                ].map((item) => (
+                  <div key={item.label} className="flex justify-between items-center text-sm">
+                    <span className="text-[10px] font-bold text-primary/40 uppercase tracking-widest">{item.label}</span>
+                    <span className="font-bold text-foreground truncate ml-4 italic">{item.val}</span>
+                  </div>
+                ))}
               </CardContent>
             </Card>
 
-            {/* Actions */}
-            <div className="space-y-3">
-              <Button variant="outline" className="w-full" disabled>
-                View Preliminary Results
-              </Button>
+            <div className="pt-2">
               <Link to="/projects">
-                <Button variant="ghost" className="w-full">
-                  Back to Projects
+                <Button variant="ghost" className="w-full font-bold text-muted-foreground hover:text-foreground">
+                  ← Return to Fleet
                 </Button>
               </Link>
             </div>
-
-            {/* Estimated Completion */}
-            <Card className="shadow-card">
-              <CardContent className="pt-6">
-                <div className="text-center space-y-2">
-                  <Clock className="w-8 h-8 text-primary mx-auto" />
-                  <div className="font-semibold">Estimated Completion</div>
-                  <div className="text-2xl font-bold text-primary">2:35 PM</div>
-                  <div className="text-sm text-muted-foreground">
-                    You'll receive an email notification when complete
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>

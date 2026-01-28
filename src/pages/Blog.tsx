@@ -1,63 +1,64 @@
-import { Calendar, Clock, ArrowRight, Search, Tag } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Search, Tag, Zap, Globe, Shield, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MainLayout } from "@/components/layout/main-layout";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 const featuredPost = {
-  title: "The Complete Guide to OWASP Top 10 2024: What's New and How to Protect Your Applications",
-  excerpt: "The OWASP Top 10 has been updated for 2024 with new vulnerabilities and refined categories. Learn about the latest web application security risks and discover practical strategies to protect your applications from the most critical vulnerabilities facing developers today.",
+  title: "The Final Guide to OWASP 2024: Infrastructure Hardening Protocols",
+  excerpt: "The threat landscape has evolved into automated node-exhaustion and dynamic logic probing. Pentraq's latest research reveals the critical shifts in external audit requirements for the current fiscal year.",
   readTime: "12 min read",
-  category: "Security Guide",
+  category: "Kernel Blueprint",
   author: "Sarah Chen",
   authorRole: "Senior Security Researcher"
 };
 
 const blogPosts = [
   {
-    title: "Automating Security Testing in CI/CD Pipelines",
-    excerpt: "Best practices for integrating automated security testing into your development workflow without slowing down deployments. Learn how to implement security gates that catch vulnerabilities early.",
+    title: "CI/CD Pipeline Security Propagation",
+    excerpt: "Integrating automated audit nodes into high-velocity development threads without compromising deployment velocity.",
     readTime: "8 min read",
     category: "DevSecOps",
     author: "Mike Rodriguez",
     authorRole: "DevOps Engineer"
   },
   {
-    title: "Understanding SQL Injection: Detection and Prevention",
-    excerpt: "A deep dive into SQL injection attacks, how to detect them early, and proven techniques to prevent them in your applications. Includes real-world examples and code samples.",
-   
+    title: "SQL Logic Exhaustion Analysis",
+    excerpt: "A deep probe into advanced sanitization circumvention and the high-fidelity remediation paths for database nodes.",
     readTime: "10 min read",
-    category: "Vulnerability Analysis",
+    category: "Logic Probing",
     author: "Alex Kim",
     authorRole: "Security Analyst"
   },
   {
-    title: "Building a Security-First Development Culture",
-    excerpt: "Transform your development team's approach to security with practical strategies for creating a security-first mindset. Learn how to make security everyone's responsibility.",
+    title: "Security-First Development Kernels",
+    excerpt: "Transforming engineering culture through the adoption of zero-trust development artifacts and automated verification.",
     readTime: "6 min read",
-    category: "Culture & Process",
+    category: "Operations",
     author: "Dr. Jennifer Walsh",
     authorRole: "Security Consultant"
   },
   {
-    title: "API Security Best Practices for 2024",
-    excerpt: "Modern APIs face unique security challenges. Discover the latest best practices for securing REST and GraphQL APIs, including authentication, authorization, and rate limiting strategies.",
+    title: "GraphQL & REST Ingress Hardening",
+    excerpt: "Securing contemporary interface nodes against protocol-specific threat vectors and dynamic exfiltration probes.",
     readTime: "9 min read",
-    category: "API Security",
+    category: "Node Security",
     author: "David Thompson",
     authorRole: "API Security Specialist"
   },
   {
-    title: "Container Security: Scanning Docker Images for Vulnerabilities",
-    excerpt: "Learn how to integrate container security scanning into your deployment pipeline. Covers Docker image vulnerability assessment, base image selection, and runtime security monitoring.",
+    title: "Docker Image Vectoring & Response",
+    excerpt: "Automated container assessment protocols for identifying artifact-level vulnerabilities before registry propagation.",
     readTime: "7 min read",
-    category: "Container Security",
+    category: "Artifacts",
     author: "Lisa Park",
     authorRole: "Cloud Security Engineer"
   },
   {
-    title: "Zero Trust Architecture: Implementation Guide",
-    excerpt: "Step-by-step guide to implementing Zero Trust security architecture in modern applications. Covers identity verification, device security, and network segmentation strategies.",
+    title: "Zero Trust Protocol Mapping",
+    excerpt: "A systematic approach to identity verification and session hardening in distributed infrastructure environments.",
     readTime: "11 min read",
     category: "Architecture",
     author: "Robert Hayes",
@@ -66,13 +67,13 @@ const blogPosts = [
 ];
 
 const categories = [
-  "All Posts",
-  "Security Guide",
+  "All Entries",
+  "Kernel Blueprints",
   "DevSecOps", 
-  "Vulnerability Analysis",
-  "API Security",
-  "Container Security",
-  "Culture & Process",
+  "Logic Probing",
+  "Node Security",
+  "Artifacts",
+  "Operations",
   "Architecture"
 ];
 
@@ -80,225 +81,193 @@ export default function Blog() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-background to-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
-            <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-accent/10 rounded-full px-4 py-2">
-                <Calendar className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-accent">Security Blog</span>
-              </div>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground">
-                Security Insights &
-                <span className="text-accent"> Best Practices</span>
-              </h1>
-              
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Stay ahead of the latest security threats with expert insights, practical guides, 
-                and real-world case studies from our security research team.
-              </p>
-            </div>
+      <section className="relative pt-32 pb-24 overflow-hidden bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(124,58,237,0.1),transparent)]" />
+        <div className="container relative z-10 mx-auto px-4 text-center space-y-10">
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
+            <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 font-black px-4 py-1 uppercase tracking-widest text-[10px] italic">
+              Knowledge Repository
+            </Badge>
+            <h1 className="text-5xl lg:text-7xl font-black text-foreground italic tracking-tighter uppercase leading-[0.9]">
+              Hardening <br /> <span className="text-primary italic">Intelligence</span>
+            </h1>
+            <p className="text-xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+              Tactical insights and infrastructure remediation strategies from the Pentraq security research kernel.
+            </p>
+          </div>
 
-            {/* Search Bar */}
-            <div className="max-w-lg mx-auto">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search articles..."
-                  className="pl-10 h-12"
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              </div>
+          <div className="max-w-xl mx-auto animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all" />
+              <Input
+                placeholder="Probe articles..."
+                className="h-14 pl-12 font-bold border-border group-hover:border-primary/40 focus-visible:ring-primary transition-all rounded-xl"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Post */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Featured Article</h2>
-            
-            <Card className="hover-lift border-border/50 card-gradient group cursor-pointer">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-1">
-                  <div className="aspect-video bg-gradient-to-br from-accent/20 to-muted rounded-lg flex items-center justify-center">
-                    <div className="text-center space-y-2">
-                      <div className="w-16 h-16 bg-accent/30 rounded-lg mx-auto flex items-center justify-center">
-                        <Calendar className="h-8 w-8 text-accent" />
-                      </div>
-                      <div className="text-xs text-muted-foreground">Featured</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="lg:col-span-2 space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <span className="text-accent bg-accent/10 px-2 py-1 rounded-full">
-                        {featuredPost.category}
-                      </span>
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="h-3 w-3" />
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Clock className="h-3 w-3" />
-                        <span>{featuredPost.readTime}</span>
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
-                      {featuredPost.title}
-                    </h3>
-                  </div>
-                  
-                  <p className="text-muted-foreground leading-relaxed line-clamp-3">
-                    {featuredPost.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm">
-                      <div className="font-medium text-foreground">{featuredPost.author}</div>
-                      <div className="text-muted-foreground">{featuredPost.authorRole}</div>
-                    </div>
-                    <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all" />
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <section className="py-8 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={category === "All Posts" ? "default" : "outline"}
-                size="sm"
-                className={category === "All Posts" 
-                  ? "bg-accent hover:bg-accent-hover text-white" 
-                  : "border-border hover:bg-muted"
-                }
-              >
-                <Tag className="mr-2 h-3 w-3" />
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Posts Grid */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-foreground">Latest Articles</h2>
+      {/* Featured Entry */}
+      <section className="py-24 bg-background border-t border-border/40">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-xs font-black uppercase tracking-widest text-muted-foreground opacity-60 italic">Featured Research</h2>
+            <div className="h-px bg-border/40 flex-1 mx-8" />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Card className="border-border/60 shadow-sm transition-all duration-500 hover:shadow-2xl hover:border-primary/20 group overflow-hidden bg-white">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="p-12 space-y-8">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <Badge className="bg-primary text-white border-none font-black italic text-[9px] uppercase tracking-widest px-3 h-6">
+                      {featuredPost.category}
+                    </Badge>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40 flex items-center gap-2">
+                      <Clock className="w-3 h-3" />
+                      {featuredPost.readTime}
+                    </span>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-black text-foreground italic tracking-tight uppercase group-hover:text-primary transition-colors leading-tight">
+                    {featuredPost.title}
+                  </h3>
+                  <p className="text-base text-muted-foreground font-medium leading-relaxed italic">
+                    {featuredPost.excerpt}
+                  </p>
+                </div>
+                
+                <div className="flex items-center justify-between pt-8 border-t border-border/40">
+                   <div className="space-y-0.5">
+                      <p className="text-xs font-black italic uppercase tracking-tight text-foreground">{featuredPost.author}</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40 italic">{featuredPost.authorRole}</p>
+                   </div>
+                   <Button variant="ghost" className="font-black italic text-xs uppercase tracking-widest gap-2 hover:bg-primary/10 hover:text-primary transition-all">
+                      Analyze Full Dossier <ArrowRight className="w-4 h-4" />
+                   </Button>
+                </div>
+              </div>
+              <div className="bg-muted relative overflow-hidden hidden lg:block">
+                 <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+                 <div className="absolute inset-0 flex items-center justify-center">
+                    <Shield className="w-32 h-32 text-primary opacity-5 group-hover:opacity-10 transition-all transform group-hover:scale-110" />
+                 </div>
+                 <div className="absolute bottom-12 left-12">
+                    <div className="flex gap-2">
+                       <div className="w-2 h-2 rounded-full bg-primary" />
+                       <div className="w-2 h-2 rounded-full bg-primary/40" />
+                       <div className="w-2 h-2 rounded-full bg-primary/20" />
+                    </div>
+                 </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* Entry Matrix */}
+      <section className="py-24 bg-muted/20 border-t border-border/40">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+             <div className="space-y-1 text-center md:text-left">
+                <h2 className="text-3xl font-black text-foreground italic tracking-tight uppercase">Intelligence <span className="text-primary italic">Stream</span></h2>
+                <p className="text-xs font-black uppercase tracking-widest text-muted-foreground opacity-40 italic">Latest Entries from the research node</p>
+             </div>
+             <div className="flex flex-wrap gap-2 justify-center">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant="outline"
+                    className={`h-9 px-6 font-black uppercase tracking-widest text-[9px] rounded-full transition-all border-border/60 ${category === "All Entries" ? 'bg-primary text-white border-none' : 'hover:border-primary/40 hover:bg-primary/5'}`}
+                  >
+                    {category}
+                  </Button>
+                ))}
+             </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {blogPosts.map((post, index) => (
               <Card 
                 key={post.title}
-                className="hover-lift border-border/50 card-gradient group cursor-pointer h-full"
+                className="border-border/60 shadow-sm transition-all duration-500 hover:shadow-xl hover:border-primary/20 group cursor-pointer bg-white"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardHeader className="p-0">
-                  <div className="aspect-video bg-gradient-to-br from-accent/20 to-muted rounded-t-lg mb-4 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-accent/20 to-muted flex items-center justify-center">
-                      <div className="text-center space-y-2">
-                        <div className="w-12 h-12 bg-accent/30 rounded-lg mx-auto flex items-center justify-center">
-                          <Calendar className="h-6 w-6 text-accent" />
-                        </div>
-                        <div className="text-xs text-muted-foreground">{post.category}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="px-6 space-y-2">
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                      <Calendar className="h-3 w-3" />
-                      <span>•</span>
-                      <Clock className="h-3 w-3" />
+                <div className="h-48 bg-muted relative overflow-hidden">
+                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent group-hover:opacity-100 opacity-60 transition-opacity" />
+                   <div className="absolute inset-0 flex items-center justify-center">
+                      <Terminal className="w-12 h-12 text-primary opacity-10 group-hover:opacity-20 transition-all transform group-hover:scale-110" />
+                   </div>
+                   <div className="absolute top-4 left-4">
+                      <Badge className="bg-white/80 backdrop-blur-sm text-primary border-none font-black italic text-[8px] uppercase tracking-widest h-5">
+                         {post.category}
+                      </Badge>
+                   </div>
+                </div>
+                <CardContent className="p-8 space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40 italic">
+                      <Calendar className="w-3 h-3" />
+                      <span>Entry No. {342 - index}</span>
+                      <span className="mx-1">•</span>
+                      <Clock className="w-3 h-3" />
                       <span>{post.readTime}</span>
                     </div>
-                    <CardTitle className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-2">
+                    <CardTitle className="text-xl font-black text-foreground group-hover:text-primary transition-colors italic uppercase tracking-tight leading-tight">
                       {post.title}
                     </CardTitle>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="px-6 pb-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <CardDescription className="text-muted-foreground leading-relaxed line-clamp-3">
-                      {post.excerpt}
-                    </CardDescription>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">
-                        {post.category}
-                      </span>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all" />
-                    </div>
+                    <p className="text-sm text-muted-foreground font-medium italic line-clamp-2">
+                       {post.excerpt}
+                    </p>
                   </div>
                   
-                  <div className="text-sm mt-4 pt-4 border-t border-border">
-                    <div className="font-medium text-foreground">{post.author}</div>
-                    <div className="text-muted-foreground">{post.authorRole}</div>
+                  <div className="flex items-center justify-between pt-6 border-t border-border/40">
+                     <div className="space-y-0.5">
+                        <p className="text-[10px] font-black italic uppercase text-foreground">{post.author}</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{post.authorRole}</p>
+                     </div>
+                     <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-border hover:bg-muted"
-            >
-              Load More Articles
-              <ArrowRight className="ml-2 h-4 w-4" />
+          <div className="text-center mt-16">
+            <Button variant="outline" size="lg" className="border-border/60 font-black italic h-12 px-10 gap-2 uppercase tracking-widest text-[10px] hover:bg-muted/50">
+              Propagate More Articles
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-              Stay Informed About
-              <span className="text-accent"> Security Trends</span>
+      {/* Newsletter Node */}
+      <section className="py-32 bg-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(124,58,237,0.15),transparent)]" />
+        <div className="container relative z-10 mx-auto px-4 text-center space-y-12">
+          <div className="space-y-6">
+            <h2 className="text-4xl lg:text-5xl font-black text-background italic tracking-tighter uppercase leading-none">
+              Stay <span className="text-primary italic">Hardenened</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Get the latest security insights, vulnerability alerts, and best practices 
-              delivered directly to your inbox every week.
+            <p className="text-lg text-background/60 font-medium max-w-2xl mx-auto italic">
+              Receive tactical intelligence and vulnerability broadcasts directly from our infrastructure sensors.
             </p>
           </div>
 
-          <div className="max-w-lg mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
+          <div className="max-w-xl mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4 p-2 bg-background/5 border border-background/10 rounded-2xl backdrop-blur-xl">
               <Input
                 type="email"
-                placeholder="your@email.com"
-                className="flex-1 h-12"
+                placeholder="infrastructure-lead@hq.com"
+                className="flex-1 h-14 bg-transparent border-none text-background font-bold placeholder:text-background/20 focus-visible:ring-0"
               />
-              <Button 
-                size="lg"
-                className="bg-accent hover:bg-accent-hover text-white shadow-glow"
-              >
-                Subscribe
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-black italic h-14 px-10 uppercase tracking-widest text-xs shadow-2xl">
+                Propagate
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground mt-3">
-              Free newsletter • Weekly updates • Unsubscribe anytime
+            <p className="text-[10px] font-bold text-background/20 mt-4 uppercase tracking-widest italic">
+              End-to-end encrypted notification thread • 0% Noise • Frequency: Weekly
             </p>
           </div>
         </div>

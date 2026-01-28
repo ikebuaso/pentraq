@@ -19,7 +19,11 @@ import {
   Calendar,
   ArrowRight,
   Shield,
-  Zap
+  Zap,
+  TrendingUp,
+  History,
+  HelpCircle,
+  ExternalLink
 } from "lucide-react";
 import {
   Table,
@@ -29,6 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
 
 export function Billing() {
   return (
@@ -69,9 +74,9 @@ function CheckoutInitialization() {
   }
 
   return (
-    <button onClick={start} disabled={fetchStatus === "fetching"} className="start-checkout-button">
+    <Button onClick={start} disabled={fetchStatus === "fetching"} className="start-checkout-button">
       {fetchStatus === "fetching" ? "Initializing..." : "Start Checkout"}
-    </button>
+    </Button>
   );
 }
 
@@ -102,12 +107,12 @@ function PaymentSection() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <PaymentElement fallback={<div>Loading payment element...</div>} />
-      {error && <div>{error.message}</div>}
-      <button type="submit" disabled={!isFormReady || isProcessing || isConfirming}>
+      {error && <div className="text-destructive text-sm font-bold">{error.message}</div>}
+      <Button type="submit" disabled={!isFormReady || isProcessing || isConfirming} className="w-full font-black italic shadow-lg">
         {isProcessing || isConfirming ? "Processing..." : "Complete Purchase"}
-      </button>
+      </Button>
     </form>
   );
 }
@@ -121,12 +126,16 @@ function CheckoutSummary() {
   }
 
   return (
-    <div>
-      <h2>Order Summary</h2>
-      <span>{plan.name}</span>
-      <span>
-        {totals.totalDueNow.currencySymbol} {totals.totalDueNow.amountFormatted}
-      </span>
+    <div className="p-6 bg-muted/30 rounded-2xl border border-border/40 mb-6 flex justify-between items-center">
+      <div className="space-y-1">
+        <h2 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Order Summary</h2>
+        <p className="text-xl font-bold tracking-tight italic">{plan.name}</p>
+      </div>
+      <div className="text-right">
+        <p className="text-2xl font-black text-primary">
+          {totals.totalDueNow.currencySymbol} {totals.totalDueNow.amountFormatted}
+        </p>
+      </div>
     </div>
   );
 }
@@ -134,7 +143,7 @@ function CheckoutSummary() {
 const BillingPage = () => {
   const billingHistory = [
     {
-      id: "inv_001",
+      id: "INV-2024-001",
       date: "2024-01-15",
       amount: "$29.00",
       status: "paid",
@@ -142,7 +151,7 @@ const BillingPage = () => {
       download: true
     },
     {
-      id: "inv_002", 
+      id: "INV-2023-012", 
       date: "2023-12-15",
       amount: "$29.00",
       status: "paid",
@@ -150,7 +159,7 @@ const BillingPage = () => {
       download: true
     },
     {
-      id: "inv_003",
+      id: "INV-2023-011",
       date: "2023-11-15", 
       amount: "$29.00",
       status: "paid",
@@ -161,148 +170,128 @@ const BillingPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="container mx-auto space-y-8 py-6">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Billing & Subscription</h1>
-          <p className="text-muted-foreground">Manage your subscription and billing information</p>
+        <div className="animate-in fade-in slide-in-from-bottom duration-500">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground italic">Billing & Subscription</h1>
+          <p className="text-muted-foreground font-medium mt-1">Manage your enterprise license and financial transaction history</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-bottom duration-500 delay-150">
             {/* Current Plan */}
-            <Card className="shadow-card">
-              <CardHeader>
+            <Card className="border-border/60 shadow-sm overflow-hidden border-l-4 border-l-primary">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="flex items-center space-x-2">
-                      <Star className="w-5 h-5 text-warning" />
-                      <span>Current Plan</span>
+                    <CardTitle className="flex items-center space-x-2.5 text-lg font-bold">
+                      <Star className="w-5 h-5 text-yellow-500" />
+                      <span>Active Subscription</span>
                     </CardTitle>
-                    <CardDescription>Your active subscription details</CardDescription>
+                    <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Your current service tier and next renewal date</CardDescription>
                   </div>
-                  <Badge className="bg-success text-success-foreground">Active</Badge>
+                  <Badge className="bg-green-500/10 text-green-600 border-none font-bold uppercase text-[10px] px-3">LICENSED</Badge>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground">Pro Plan</h3>
-                    <p className="text-muted-foreground">Unlimited scans and advanced features</p>
+              <CardContent className="p-8 space-y-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-black text-foreground italic tracking-tight uppercase">Professional Tier</h3>
+                    <p className="text-sm font-medium text-muted-foreground">Unlimited infrastructure audits and advanced remediation guides.</p>
                   </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-foreground">$29</div>
-                    <div className="text-sm text-muted-foreground">per month</div>
+                  <div className="text-left sm:text-right bg-muted/30 p-4 rounded-2xl border border-border/40 min-w-[140px]">
+                    <div className="text-3xl font-black text-primary italic">$29<span className="text-sm opacity-60 ml-0.5">/mo</span></div>
+                    <div className="text-[10px] font-black text-muted-foreground uppercase mt-1">Monthly Cycle</div>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 pt-4">
-                  <div>
-                    <div className="text-sm text-muted-foreground">Next billing date</div>
-                    <div className="font-medium">February 15, 2024</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4 border-t border-border/40">
+                  <div className="space-y-1.5 text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Next Billing Date</p>
+                    <p className="text-sm font-black text-foreground flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-primary" />
+                      February 15, 2024
+                    </p>
                   </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">Billing cycle</div>
-                    <div className="font-medium">Monthly</div>
+                  <div className="space-y-1.5 text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Payment Protocol</p>
+                    <p className="text-sm font-black text-foreground flex items-center gap-2">
+                      <CreditCard className="w-4 h-4 text-primary" />
+                      VISA •••• 4242
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex space-x-2 pt-4">
-                  <Button variant="outline">Change Plan</Button>
-                  <Button variant="destructive">Cancel Subscription</Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Usage This Month */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Usage This Month</CardTitle>
-                <CardDescription>Your current usage and limits</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-primary">47</div>
-                    <div className="text-sm text-muted-foreground">Scans Used</div>
-                    <div className="text-xs text-muted-foreground mt-1">Unlimited remaining</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-primary">12</div>
-                    <div className="text-sm text-muted-foreground">Projects</div>
-                    <div className="text-xs text-muted-foreground mt-1">Unlimited allowed</div>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg">
-                    <div className="text-2xl font-bold text-primary">23</div>
-                    <div className="text-sm text-muted-foreground">Reports Generated</div>
-                    <div className="text-xs text-muted-foreground mt-1">PDF exports included</div>
-                  </div>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Button variant="outline" className="font-bold border-border/60 hover:bg-muted/50">Modify Plan</Button>
+                  <Button variant="ghost" className="font-bold text-destructive hover:bg-destructive/10">Abort Subscription</Button>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Payment Method */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <CreditCard className="w-5 h-5" />
-                  <span>Payment Method</span>
+            {/* Usage Stats */}
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+               <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                  <span>Cycle Utilization</span>
                 </CardTitle>
-                <CardDescription>Manage your billing information</CardDescription>
+                <CardDescription className="text-[10px] font-black uppercase tracking-widest opacity-60">Resource consumption for the current billing window</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-6 bg-gradient-to-r from-blue-600 to-blue-400 rounded flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">VISA</span>
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {[
+                    { label: "Audit Volume", val: "47", limit: "Unlimited", progress: 65 },
+                    { label: "Active Nodes", val: "12", limit: "Unlimited", progress: 40 },
+                    { label: "Archived Logs", val: "23", limit: "Included", progress: 85 }
+                  ].map((stat, idx) => (
+                    <div key={idx} className="space-y-4">
+                      <div className="space-y-1">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{stat.label}</p>
+                        <p className="text-2xl font-black text-foreground italic">{stat.val}</p>
+                      </div>
+                      <Progress value={stat.progress} className="h-1.5 bg-muted shadow-inner" />
+                      <p className="text-[10px] font-bold text-primary italic uppercase tracking-widest">{stat.limit}</p>
                     </div>
-                    <div>
-                      <div className="font-medium">•••• •••• •••• 4242</div>
-                      <div className="text-sm text-muted-foreground">Expires 12/25</div>
-                    </div>
-                  </div>
-                  <Badge variant="outline">Primary</Badge>
-                </div>
-                
-                <div className="flex space-x-2">
-                  <Button variant="outline">Update Card</Button>
-                  <Button variant="outline">Add Payment Method</Button>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Billing History */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Billing History</CardTitle>
-                <CardDescription>Download invoices and view payment history</CardDescription>
+            {/* Transaction History */}
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="flex items-center space-x-2.5 text-lg font-black italic">
+                   <History className="w-5 h-5 text-primary" />
+                   <span>Transaction History</span>
+                </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-0">
                 <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Invoice</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Actions</TableHead>
+                  <TableHeader className="bg-muted/10">
+                    <TableRow className="border-border/40">
+                      <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Invoice ID</TableHead>
+                      <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Capture Date</TableHead>
+                      <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Amount</TableHead>
+                      <TableHead className="text-[10px] font-black uppercase tracking-widest h-12">Status</TableHead>
+                      <TableHead className="text-[10px] font-black uppercase tracking-widest h-12 text-right px-6">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {billingHistory.map((invoice) => (
-                      <TableRow key={invoice.id}>
-                        <TableCell className="font-medium">{invoice.id}</TableCell>
-                        <TableCell>{new Date(invoice.date).toLocaleDateString()}</TableCell>
-                        <TableCell>{invoice.amount}</TableCell>
+                      <TableRow key={invoice.id} className="border-border/40 hover:bg-muted/20 transition-colors group">
+                        <TableCell className="font-bold text-sm text-foreground italic">{invoice.id}</TableCell>
+                        <TableCell className="text-sm font-medium text-muted-foreground">{new Date(invoice.date).toLocaleDateString()}</TableCell>
+                        <TableCell className="font-black text-sm text-foreground">{invoice.amount}</TableCell>
                         <TableCell>
-                          <Badge className="bg-success text-success-foreground">
+                          <Badge className="font-black text-[9px] bg-green-500/10 text-green-600 border-none uppercase">
                             {invoice.status}
                           </Badge>
                         </TableCell>
-                        <TableCell>
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4 mr-2" />
+                        <TableCell className="text-right px-6">
+                          <Button variant="ghost" size="sm" className="h-8 font-black uppercase text-[10px] tracking-widest gap-2 group/btn">
+                            <Download className="w-3.5 h-3.5 group-hover/btn:translate-y-0.5 transition-transform" />
                             PDF
                           </Button>
                         </TableCell>
@@ -315,98 +304,81 @@ const BillingPage = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Upgrade Options */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Available Plans</CardTitle>
-                <CardDescription>Choose the plan that fits your needs</CardDescription>
+          <div className="space-y-8 animate-in fade-in slide-in-from-right duration-500 delay-300">
+            {/* Plan Selector / Upsell */}
+            <Card className="border-primary/20 bg-primary/5 shadow-lg overflow-hidden">
+               <CardHeader className="border-b border-primary/10">
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-primary/60">Expansion Packs</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Free Plan */}
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Free</h3>
-                    <div className="text-lg font-bold">$0</div>
+              <CardContent className="p-6 space-y-6">
+                {[
+                  { name: "Enterprise Hub", price: "$99", icon: Zap, desc: "SLA Guarantees & SOC2 mapping" },
+                  { name: "Team Seat", price: "+$5", icon: ArrowRight, desc: "Add collaborative audit capacity" }
+                ].map((item, idx) => (
+                  <div key={idx} className="space-y-3 group cursor-pointer">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                         <div className="p-2 bg-primary/10 rounded-lg group-hover:scale-110 transition-transform">
+                            <item.icon className="w-4 h-4 text-primary" />
+                         </div>
+                         <div>
+                            <p className="text-sm font-black text-foreground italic tracking-tight">{item.name}</p>
+                            <p className="text-[10px] font-medium text-muted-foreground">{item.desc}</p>
+                         </div>
+                      </div>
+                      <p className="text-lg font-black text-primary italic">{item.price}</p>
+                    </div>
                   </div>
-                  <ul className="text-sm space-y-1 text-muted-foreground mb-3">
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />5 scans/month</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Basic reports</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Email support</li>
-                  </ul>
-                  <Button variant="outline" size="sm" className="w-full" disabled>
-                    Current Plan
-                  </Button>
-                </div>
-
-                {/* Pro Plan */}
-                <div className="border-2 border-primary rounded-lg p-4 bg-primary/5">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Pro</h3>
-                    <div className="text-lg font-bold">$29</div>
-                  </div>
-                  <ul className="text-sm space-y-1 text-muted-foreground mb-3">
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Unlimited scans</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Advanced reports</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Priority support</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />API access</li>
-                  </ul>
-                  <Badge className="w-full justify-center bg-success text-success-foreground">
-                    Current Plan
-                  </Badge>
-                </div>
-
-                {/* Enterprise Plan */}
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Enterprise</h3>
-                    <div className="text-lg font-bold">$99</div>
-                  </div>
-                  <ul className="text-sm space-y-1 text-muted-foreground mb-3">
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Everything in Pro</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Custom integrations</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />Dedicated support</li>
-                    <li className="flex items-center"><Check className="w-3 h-3 mr-2" />SLA guarantee</li>
-                  </ul>
-                  <Button size="sm" className="w-full">
-                    Upgrade
-                    <ArrowRight className="w-3 h-3 ml-2" />
+                ))}
+                <div className="pt-2">
+                  <Button className="w-full font-black italic shadow-md gap-2">
+                    Upgrade Workspace
+                    <ArrowRight className="w-4 h-4" />
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Billing Support */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Need Help?</CardTitle>
+            {/* Support Box */}
+            <Card className="border-border/60 shadow-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 border-b border-border/40">
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground">Strategic Guidance</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <p className="text-sm text-muted-foreground">
-                  Questions about billing or need to make changes to your subscription?
-                </p>
-                <Button variant="outline" className="w-full">
-                  Contact Billing Support
-                </Button>
-                <Button variant="link" className="w-full h-auto p-0 text-primary">
-                  View Billing FAQ →
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Next Billing */}
-            <Card className="shadow-card">
-              <CardContent className="pt-6">
-                <div className="text-center space-y-2">
-                  <Calendar className="w-8 h-8 text-primary mx-auto" />
-                  <div className="font-semibold">Next Billing</div>
-                  <div className="text-2xl font-bold text-foreground">Feb 15</div>
-                  <div className="text-sm text-muted-foreground">
-                    $29.00 will be charged to your card
-                  </div>
+              <CardContent className="p-6 space-y-4">
+                <div className="flex gap-4">
+                   <div className="p-3 bg-muted rounded-2xl h-fit">
+                      <HelpCircle className="w-5 h-5 text-muted-foreground" />
+                   </div>
+                   <div className="space-y-1">
+                      <p className="text-sm font-black italic text-foreground">Need Custom Terms?</p>
+                      <p className="text-xs font-medium text-muted-foreground leading-relaxed">Our infrastructure specialists are ready to architect a custom license for your fleet.</p>
+                   </div>
+                </div>
+                <Button variant="outline" className="w-full font-bold border-border/60 h-10">Contact Support</Button>
+                <div className="flex items-center justify-center gap-2 pt-2 cursor-pointer hover:text-primary transition-colors">
+                  <p className="text-[10px] font-black uppercase tracking-widest opacity-60">System FAQ</p>
+                  <ExternalLink className="w-3 h-3 opacity-60" />
                 </div>
               </CardContent>
             </Card>
+
+            {/* Quick Summary Card */}
+            <div className="p-8 bg-foreground rounded-2xl shadow-2xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-[60px] translate-x-16 -translate-y-16 group-hover:bg-primary/40 transition-all" />
+               <div className="relative z-10 space-y-6">
+                  <div className="flex items-center gap-2.5">
+                    <Shield className="w-5 h-5 text-primary" />
+                    <p className="text-[10px] font-black uppercase tracking-widest text-background">Billing Summary</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-background/60 italic uppercase tracking-tighter">Total Due Feb 15</p>
+                    <p className="text-4xl font-black text-background italic tracking-tighter">$29.00</p>
+                  </div>
+                  <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                    <p className="text-[10px] font-black text-primary uppercase italic tracking-widest">Automatic Renewal Enabled</p>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Shield, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+
 const navigation = [
   {
     name: "Features",
@@ -22,15 +24,13 @@ const navigation = [
   },
 ];
 
-type NavbarProps = {
-  isDark?: boolean;
-  onThemeToggle: () => void;
-};
-
-export function Navbar({ isDark = false, onThemeToggle }: NavbarProps) {
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
+  
   const isActive = (path: string) => location.pathname === path;
+
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,8 +51,8 @@ export function Navbar({ isDark = false, onThemeToggle }: NavbarProps) {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-accent",
-                  isActive(item.href) ? "text-accent" : "text-muted-foreground"
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  isActive(item.href) ? "text-primary" : "text-muted-foreground"
                 )}
               >
                 {item.name}
@@ -64,30 +64,46 @@ export function Navbar({ isDark = false, onThemeToggle }: NavbarProps) {
           <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
-              size="sm"
-              onClick={onThemeToggle}
-              className="hover:bg-muted"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              {isDark ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
             </Button>
             <Link to="/Auth">
-              <Button size="sm" className="bg-accent hover:bg-accent-hover">
+              <Button size="sm">
                 Get Started
               </Button>
             </Link>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
-            <Link to="/Auth">
-              <Button size="sm" className="bg-accent hover:bg-accent-hover">
-                Get Started
-              </Button>
-            </Link>
+          <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
         </div>
 
@@ -100,29 +116,22 @@ export function Navbar({ isDark = false, onThemeToggle }: NavbarProps) {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "block px-3 py-2 text-base font-medium transition-colors",
+                    "block px-3 py-2 text-base font-medium transition-colors rounded-md",
                     isActive(item.href)
-                      ? "text-accent bg-muted"
-                      : "text-muted-foreground hover:text-accent hover:bg-muted"
+                      ? "text-primary bg-muted"
+                      : "text-muted-foreground hover:text-primary hover:bg-muted"
                   )}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex items-center space-x-2 px-3 py-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onThemeToggle}
-                  className="hover:bg-muted"
-                >
-                  {isDark ? (
-                    <Sun className="h-4 w-4" />
-                  ) : (
-                    <Moon className="h-4 w-4" />
-                  )}
-                </Button>
+              <div className="pt-2">
+                <Link to="/Auth" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
